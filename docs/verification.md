@@ -76,3 +76,7 @@ The default preview also passed39 browser tests with its documented framework st
 ## October 14, 2026 profile-content update
 
 Scoped `npm run test:mutation` re-ran: 181 non-static mutants, 151 killed, 30 survived, score 83.43%, zero timeouts, uncovered mutants or errors (the surviving mutants are unchanged error-message strings in `src/lib/contracts.ts`). The container image build and Nginx HTTP/browser smoke did not run: Docker Hub returned `429 Too Many Requests` for the pinned `node` and `nginx` base images, so no image was built. They remain pending and run in the `checks.yml` CI job.
+
+## October 14, 2026 directory specialty tags
+
+Homepage directory rows now list each profile's existing `highlights.specialties` as tags; no new facts. `scripts/check-built.mjs` asserts each row's tags equal its source specialties (red before the component change, green after). `npm run verify` passed (144 tests) and `npm run test:e2e` passed 39/39 including axe, using the preinstalled Chromium via `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. Local Node was 22.22, not the pinned 24.19; CI uses the pinned version. Mutation testing and container smoke did not run locally. The `checks.yml` `verify` job ([run 38596624676](https://github.com/Bonobo791/Top-Realtors-Cypress-TX/actions/runs/38596624676)) then passed on PR head `957c47c` under pinned Node: `npm run verify`, scoped `npm run test:mutation`, Docker build, `container-smoke.mjs`, `npm run test:e2e` against the container, and the health/uid checks. Live site at review time served build `20bc67f`, which predates PR #9.
