@@ -358,6 +358,21 @@ h3 em {
   margin: 0;
   line-height: 1.7;
 }
+.row-specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.row-specialties li {
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--ink);
+}
 .agent-row .text-link {
   display: block;
   margin-top: 9px;

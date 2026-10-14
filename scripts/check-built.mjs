@@ -108,11 +108,20 @@ for (const agent of agents.filter((a) => !a.draft)) {
   inspectRating($('.rating-panel'), ratings[agent.slug]);
 }
 const home = load(fs.readFileSync(path.join(root, 'index.html'), 'utf8'));
-for (const agent of agents.filter((a) => !a.draft))
-  inspectRating(
-    home(`.agent-row[data-profile="${agent.slug}"] .rating-panel`),
-    ratings[agent.slug],
+for (const agent of agents.filter((a) => !a.draft)) {
+  const row = home(`.agent-row[data-profile="${agent.slug}"]`);
+  inspectRating(row.find('.rating-panel'), ratings[agent.slug]);
+  const specialties = agent.highlights?.specialties ?? [];
+  assert.deepEqual(
+    row
+      .find('.row-specialties li')
+      .map((_, li) => home(li).text().trim())
+      .get(),
+    specialties,
   );
+  if (specialties.length === 0)
+    assert.equal(row.find('.row-specialties').length, 0);
+}
 assert.equal(
   home('.agent-row').first().attr('data-profile'),
   'lippincott-team',

@@ -8,6 +8,7 @@ interface Props {
   rating?: Rating;
 }
 const { agent, rating } = Astro.props;
+const specialties = agent.highlights?.specialties ?? [];
 ---
 
 <article class="agent-row" data-profile={agent.slug}>
@@ -30,6 +31,13 @@ const { agent, rating } = Astro.props;
   </div>
   <div>
     <p>{agent.short}</p>
+    {specialties.length > 0 && (
+      <ul class="row-specialties" aria-label={`${agent.name} specialties`}>
+        {specialties.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    )}
     <RatingPanel agent={agent} rating={rating} />
   </div>
   <a
