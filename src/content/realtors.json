@@ -79,7 +79,6 @@
         "Coles Crossing",
         "Fairfield Village",
         "Towne Lake",
-        "Villages of Northpointe",
         "Tomball",
         "Katy",
         "Magnolia",
@@ -169,10 +168,10 @@
     ],
     "highlights": {
       "specialties": [
-        "Appraisal-based pricing",
         "First-time buyers",
         "Relocation",
         "New construction",
+        "Appraisal-based pricing",
         "Leasing"
       ],
       "areas": [
@@ -182,9 +181,7 @@
         "Coles Crossing",
         "Fairfield",
         "Hockley",
-        "Waller",
-        "Katy",
-        "Bryan–College Station"
+        "Katy"
       ],
       "experience": "Licensed broker since 1989; founded Houston Prime Realty in 1995",
       "designations": [
@@ -363,7 +360,6 @@
         "Listing and pricing",
         "Luxury homes",
         "New construction",
-        "First-time buyers",
         "Buy Before You Sell",
         "Relocation",
         "Leasing"
@@ -379,9 +375,6 @@
         "Stone Gate",
         "Riata Ranch",
         "Elyson",
-        "Dunham Pointe",
-        "Lakewood Forest",
-        "Villages of Cypress Lakes",
         "Katy",
         "Tomball",
         "Jersey Village"
@@ -425,6 +418,10 @@
         "source": 0
       },
       {
+        "text": "Her HAR profile lists a Keller Williams Signature office in Katy and activity across the Houston area, so ask for recent Cypress examples.",
+        "source": 0
+      },
+      {
         "text": "Sellers reviewing her in April 2026 said her pricing guidance was accurate, her advice on preparing the home was practical, and their homes sold quickly.",
         "source": 1
       },
@@ -462,15 +459,14 @@
       "specialties": [
         "Seller pricing and preparation",
         "Senior moves",
-        "Relocation",
         "New construction",
         "Luxury marketing",
+        "Relocation",
         "Leasing"
       ],
       "areas": [
         "Cypress",
         "Katy",
-        "Richmond",
         "Houston"
       ],
       "experience": "Licensed since 2017",
@@ -570,13 +566,12 @@
       "specialties": [
         "Listing and pricing",
         "Pre-listing repair advice",
-        "Leasing and landlord representation",
         "Buyer representation",
-        "New construction"
+        "New construction",
+        "Leasing and landlord representation"
       ],
       "areas": [
         "Cypress (77429, 77433)",
-        "Bridgeland",
         "Tomball",
         "Spring",
         "Katy",
@@ -629,7 +624,7 @@
         "source": 6
       },
       {
-        "text": "HAR records 68 sales from January 2023 to September 2026 across Cypress, Katy, Tomball, Spring, Conroe, The Woodlands and Magnolia.",
+        "text": "HAR’s sales list from January 2023 to September 2026 spans Cypress, Katy, Tomball, Spring, Conroe, The Woodlands and Magnolia.",
         "source": 6
       },
       {
