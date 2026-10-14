@@ -93,6 +93,10 @@ for (const agent of agents.filter((a) => !a.draft)) {
     assert($('.highlights').text().includes(item));
   for (const item of agent.highlights?.areas ?? [])
     assert($('.highlights').text().includes(item));
+  for (const item of agent.highlights?.designations ?? [])
+    assert($('.highlights').text().includes(item));
+  if (agent.highlights?.reviews)
+    assert($('.highlights').text().includes(agent.highlights.reviews));
   const schema = JSON.parse($('script[type="application/ld+json"]').text());
   assert.equal(schema.mainEntity.name, agent.name);
   assert.equal(
