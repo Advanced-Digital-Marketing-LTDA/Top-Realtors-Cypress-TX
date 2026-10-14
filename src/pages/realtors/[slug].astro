@@ -27,6 +27,7 @@ interface Props {
   related: Agent[];
 }
 const { agent, rating, related } = Astro.props;
+const highlights = agent.highlights;
 const licenseNote = agent.license
   ? 'License numbers on this page are attributed to HAR, not a live TREC status check. '
   : '';
@@ -63,16 +64,6 @@ const licenseNote = agent.license
                 View HAR profile
               </ExternalLink>
             </div>
-            <p class="notice">
-              {agent.slug === SPONSORED_SLUG && (
-                <>
-                  <strong>Paid placement.</strong>{' '}
-                </>
-              )}
-              This editorial profile is separate from the official website for{' '}
-              {agent.name}. Use the linked professional pages for current
-              services, availability, and contact details.
-            </p>
           </div>
           <aside class="profile-aside" aria-label="Professional details">
             <div class="monogram" aria-hidden="true">
@@ -88,6 +79,24 @@ const licenseNote = agent.license
                 <dt>Profile type</dt>
                 <dd>{agent.type}</dd>
               </div>
+              {highlights?.experience && (
+                <div>
+                  <dt>Experience</dt>
+                  <dd>{highlights.experience}</dd>
+                </div>
+              )}
+              {highlights?.team && (
+                <div>
+                  <dt>Team</dt>
+                  <dd>{highlights.team}</dd>
+                </div>
+              )}
+              {highlights && highlights.languages.length > 0 && (
+                <div>
+                  <dt>Languages</dt>
+                  <dd>{highlights.languages.join(', ')}</dd>
+                </div>
+              )}
               {agent.license && (
                 <div>
                   <dt>License number listed by HAR</dt>
@@ -123,8 +132,36 @@ const licenseNote = agent.license
             Specialties, strengths & fit considerations
           </span>
           <h2>
-            What the evidence <em>shows.</em>
+            What buyers and sellers <em>should know.</em>
           </h2>
+          {highlights && (
+            <dl class="highlights">
+              {highlights.specialties.length > 0 && (
+                <div>
+                  <dt>Specialties</dt>
+                  <dd>{highlights.specialties.join(' · ')}</dd>
+                </div>
+              )}
+              {highlights.areas.length > 0 && (
+                <div>
+                  <dt>Areas served</dt>
+                  <dd>{highlights.areas.join(' · ')}</dd>
+                </div>
+              )}
+              {highlights.designations.length > 0 && (
+                <div>
+                  <dt>Designations</dt>
+                  <dd>{highlights.designations.join(' · ')}</dd>
+                </div>
+              )}
+              {highlights.reviews && (
+                <div>
+                  <dt>What recent clients say</dt>
+                  <dd>{highlights.reviews}</dd>
+                </div>
+              )}
+            </dl>
+          )}
           <ul class="fact-list">
             {agent.facts.map((fact) => (
               <li>

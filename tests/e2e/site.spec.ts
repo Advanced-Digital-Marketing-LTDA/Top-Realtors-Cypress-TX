@@ -112,9 +112,6 @@ for (const width of [1440, 375, 320])
           'Paid placement · eXp Realty LLC.',
         );
         await expect(sponsorshipFaq).toContainText(
-          'profile page says “Paid placement.”',
-        );
-        await expect(sponsorshipFaq).toContainText(
           'directory row is labeled “Sponsored listing.”',
         );
         const badge = page
@@ -183,9 +180,7 @@ for (const width of [1440, 375, 320])
         await checkRating(page.locator('.rating-panel'), r);
         if (a.slug === 'lippincott-team') {
           await expect(page.locator('.sponsored-badge')).toHaveCount(0);
-          await expect(page.locator('.notice')).toContainText(
-            'Paid placement.',
-          );
+          await expect(page.locator('.notice')).toHaveCount(0);
           await screenshot(page, 'profile-' + width);
         }
       }

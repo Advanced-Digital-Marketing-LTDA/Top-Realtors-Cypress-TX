@@ -1,7 +1,7 @@
 import { z } from 'zod';
 export const ORIGIN = 'https://realtorscypresstx.com';
 export const SPONSORED_SLUG = 'lippincott-team';
-export const FACTS_CHECKED = 'October 7, 2026';
+export const FACTS_CHECKED = 'October 14, 2026';
 // HAR feedback on the sponsored organization belongs to its named individual.
 const teamRatingSubjects: Readonly<Record<string, string>> = {
   [SPONSORED_SLUG]: 'Amy Lippincott',
@@ -46,6 +46,17 @@ export const agentSchema = z
     intro: text,
     short: text,
     draft: z.boolean().default(false),
+    highlights: z
+      .object({
+        specialties: z.array(text).default([]),
+        areas: z.array(text).default([]),
+        experience: text.optional(),
+        languages: z.array(text).default([]),
+        designations: z.array(text).default([]),
+        team: text.optional(),
+        reviews: text.optional(),
+      })
+      .optional(),
     facts: z
       .array(z.object({ text, source: z.number().int().nonnegative() }))
       .min(1),

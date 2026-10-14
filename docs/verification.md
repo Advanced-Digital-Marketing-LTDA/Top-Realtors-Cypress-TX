@@ -72,3 +72,7 @@ Independent review confirmed contracts/source rendering/type checks, all56 local
 Local readiness does not establish actual GitHub CI, source-license decision, production TLS/DNS/redirect/cache chain, host log access/retention, approved indexing or live Coolify rollback. Those owner/operator tasks remain explicit in the46-ID bootstrap map and release runbook. No new-branch push, merge, deployment, DNS change, production access or outgoing reviewer communication was performed.
 
 The default preview also passed39 browser tests with its documented framework status behavior. Final independent serving/docs/CI review found no concrete blocker:46 unique requirement IDs, actual private-source404 probes, encoded traversal400, correct MIME/headers, six no-JS container views and byte-identical served photos. The pre-commit reviewer image used marker local; final full-SHA identity is verified after the local commit.
+
+## October 14, 2026 profile-content update
+
+Scoped `npm run test:mutation` re-ran: 181 non-static mutants, 151 killed, 30 survived, score 83.43%, zero timeouts, uncovered mutants or errors (the surviving mutants are unchanged error-message strings in `src/lib/contracts.ts`). The container image build and Nginx HTTP/browser smoke did not run: Docker Hub returned `429 Too Many Requests` for the pinned `node` and `nginx` base images, so no image was built. They remain pending and run in the `checks.yml` CI job.
