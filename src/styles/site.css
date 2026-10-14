@@ -715,13 +715,6 @@ footer {
 .more-links a:hover {
   background: var(--sage);
 }
-.notice {
-  font-size: 13px;
-  border-left: 3px solid var(--gold);
-  padding-left: 17px;
-  color: var(--muted);
-  margin-top: 30px;
-}
 .notfound {
   text-align: center;
   padding: 100px 0;
@@ -1096,4 +1089,22 @@ summary:focus-visible {
     padding-left: 12px;
     padding-right: 12px;
   }
+}
+.highlights {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 30px;
+  padding: 22px 24px;
+  border-left: 3px solid var(--gold);
+  background: var(--white);
+}
+.highlights dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.highlights dd {
+  margin: 4px 0 0;
 }

@@ -89,6 +89,10 @@ for (const agent of agents.filter((a) => !a.draft)) {
       agent.sources[fact.source].url,
     );
   });
+  for (const item of agent.highlights?.specialties ?? [])
+    assert($('.highlights').text().includes(item));
+  for (const item of agent.highlights?.areas ?? [])
+    assert($('.highlights').text().includes(item));
   const schema = JSON.parse($('script[type="application/ld+json"]').text());
   assert.equal(schema.mainEntity.name, agent.name);
   assert.equal(
@@ -125,10 +129,9 @@ const lippincott = load(
   fs.readFileSync(path.join(root, 'realtors/lippincott-team.html'), 'utf8'),
 );
 assert.equal(lippincott('.sponsored-badge').length, 0);
-assert(lippincott('.notice').text().includes('Paid placement.'));
+assert.equal(lippincott('.notice').length, 0);
 const sponsorshipFaq = home('#faq details').eq(1).find('p').text();
 assert(sponsorshipFaq.includes('Paid placement · eXp Realty LLC.'));
-assert(sponsorshipFaq.includes('profile page says “Paid placement.”'));
 assert(
   sponsorshipFaq.includes('directory row is labeled “Sponsored listing.”'),
 );

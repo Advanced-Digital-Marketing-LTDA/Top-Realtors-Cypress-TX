@@ -128,15 +128,15 @@ test('individual scope, rating dates and exact subject reject mismatches', () =>
   const data = parseDirectory(agents);
   const changed = structuredClone(ratings);
   changed['lippincott-team'].subject = 'The Lippincott Team';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-06')).toThrow();
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
   changed['lippincott-team'].subject = 'Amy Lippincott';
-  expect(parseRatingSnapshot(changed, data, '2026-10-06')).toHaveProperty(
+  expect(parseRatingSnapshot(changed, data, '2026-10-14')).toHaveProperty(
     'lippincott-team',
   );
-  changed['lippincott-team'].checked = '2026-10-07';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-06')).toThrow();
+  changed['lippincott-team'].checked = '2026-10-15';
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
   changed['lippincott-team'].checked = '2026-99-99';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-06')).toThrow();
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
 });
 test('non-sponsored profiles are alphabetical with only leading The ignored', () => {
   const data = parseDirectory(agents);
@@ -157,10 +157,10 @@ test.each(['kevan-pewitt', 'jill-smith', 'tiffani-reynolds'] as const)(
     const data = parseDirectory(agents);
     const changed = structuredClone(ratings);
     changed[key].subject = 'Another individual';
-    expect(() => parseRatingSnapshot(changed, data, '2026-10-06')).toThrow();
+    expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
     const expected = ratings[key];
     changed[key].subject = '  ' + expected.subject + '  ';
-    expect(parseRatingSnapshot(changed, data, '2026-10-06')[key]).toEqual(
+    expect(parseRatingSnapshot(changed, data, '2026-10-14')[key]).toEqual(
       expected,
     );
   },
