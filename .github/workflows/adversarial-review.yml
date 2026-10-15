@@ -1,7 +1,7 @@
 name: Adversarial Review
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
@@ -25,6 +25,7 @@ jobs:
         if: ${{ env.ANTHROPIC_API_KEY != '' }}
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: anthropics/claude-code-action@c3d45e8e941e1b2ad7b278c57482d9c5bf1f35b3 # v1.0.99
         if: ${{ env.ANTHROPIC_API_KEY != '' }}
         with:
