@@ -20,4 +20,10 @@ Run `npm ci`, `npm run verify`, `npm run test:e2e`, the scoped `npm run test:mut
 
 ## Content and public boundaries
 
-Preserve eight verified profiles (Cy-Fair Real Estate added 2026-10-15 per CRG-6), stable .html routes, linked source citations and licensed responsive photo copies. Lippincott is first. Paid-placement language appears in exactly two places: the Terms page and the “Sponsored listing” badge on Lippincott’s homepage directory row. Nowhere else. The Lippincott feature card stays in the homepage hero. Individual HAR ratings retain subject/count/platform/date/scope; missing metrics are omitted. Do not present an objective performance ranking or team-wide rating. Astro must escape source text and attributes. Local success does not establish CI, DNS/TLS, deployment or recovery.
+Preserve seven verified profiles, stable .html routes, linked source citations and licensed responsive photo copies. Lippincott is first. Keep a visible “Paid placement” disclosure in the feature card (the owner removed the profile-page notice on 2026-10-14); keep “Sponsored listing” on its directory row. Individual HAR ratings retain subject/count/platform/date/scope; missing metrics are omitted. Do not present an objective performance ranking or team-wide rating. Astro must escape source text and attributes. Local success does not establish CI, DNS/TLS, deployment or recovery.
+
+## Review tooling
+
+Before a PR, inside Claude Code: run the PR Review Toolkit agents `pr-test-analyzer` and `silent-failure-hunter` on every change, and run the `adversarial-review` project skill before every push. Run gstack `/cso` and `/test-audit` for changes to auth, owner-scoping or tests. Warp validate-changes-match-specs applies once tasks carry a spec.
+
+In CI on every PR: `ratchets.yml` runs `scripts/ratchet.mjs` (test count may not fall; lint/type suppressions and type escapes may not rise; baseline in `ratchet-baseline.json`). `adversarial-review.yml` needs the `ANTHROPIC_API_KEY` secret, and `claude-code-review.yml` needs it or `CLAUDE_CODE_OAUTH_TOKEN`; each skips with a notice when its credential is absent. Update the baseline only with `node scripts/ratchet.mjs --update` and only when the change is intended.
