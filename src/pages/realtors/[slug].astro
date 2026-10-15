@@ -28,6 +28,7 @@ interface Props {
 }
 const { agent, rating, related } = Astro.props;
 const highlights = agent.highlights;
+const checked = agent.checked ?? FACTS_CHECKED;
 const licenseNote = agent.license
   ? 'License numbers on this page are attributed to HAR, not a live TREC status check. '
   : '';
@@ -48,7 +49,7 @@ const licenseNote = agent.license
         </div>
         <div class="profile-grid">
           <div>
-            <span class="eyebrow">{agent.type} · Public-source profile</span>
+            <span class="eyebrow">{agent.type} · Cypress, TX</span>
             <h1>{agent.name}</h1>
             <div class="brokerage">{agent.brokerage}</div>
             <p class="lede">{agent.intro}</p>
@@ -72,7 +73,7 @@ const licenseNote = agent.license
             <span class="eyebrow">At a glance</span>
             <dl>
               <div>
-                <dt>Brokerage shown by public sources</dt>
+                <dt>Brokerage</dt>
                 <dd>{agent.brokerage}</dd>
               </div>
               <div>
@@ -113,10 +114,10 @@ const licenseNote = agent.license
               )}
             </dl>
             <ExternalLink href={agent.har} class="btn btn-light">
-              Check current public profile
+              See current HAR listings
             </ExternalLink>
             <p class="note">
-              {licenseNote}Sources reviewed {FACTS_CHECKED}.
+              {licenseNote}We checked these sources {checked}.
             </p>
           </aside>
         </div>
@@ -128,9 +129,7 @@ const licenseNote = agent.license
       </div>
       <div class="wrap profile-content">
         <div>
-          <span class="eyebrow">
-            Specialties, strengths & fit considerations
-          </span>
+          <span class="eyebrow">What we found</span>
           <h2>
             What buyers and sellers <em>should know.</em>
           </h2>
@@ -176,25 +175,23 @@ const licenseNote = agent.license
             ))}
           </ul>
           <div class="profile-questions">
-            <h3>Make your first conversation count.</h3>
+            <h3>Questions we’d ask on the first call.</h3>
             <ul>
               <li>
-                What recent experience can you share with homes like mine in my
-                target neighborhood?
+                What have you sold or leased recently near the homes I’m
+                considering?
               </li>
               <li>
-                Who would be my day-to-day contact, and how do you handle
-                updates?
+                Who will be my day-to-day contact, and how often will we talk?
               </li>
               <li>
-                What services, fees, and representation terms would apply to my
-                situation?
+                What will you charge, what’s included, and what will I sign?
               </li>
             </ul>
           </div>
         </div>
         <aside class="sources">
-          <h2>Sources &amp; context</h2>
+          <h2>Our sources</h2>
           <ol>
             {agent.sources.map((source) => (
               <li>
@@ -205,14 +202,13 @@ const licenseNote = agent.license
             ))}
           </ol>
           <p>
-            These are public professional profiles and self-published business
-            pages, not independently audited performance records. Verified HAR
-            survey aggregates are labeled separately. No independent performance
-            ranking or team-wide rating is asserted.
+            We read these public HAR pages and the realtor’s own website. They
+            are not audited performance records. HAR ratings are labeled with
+            the individual they belong to, and we don’t rank performance or give
+            team-wide scores.
           </p>
           <p>
-            Checked {FACTS_CHECKED}. {licenseNote}For current licensing
-            information, use{' '}
+            Checked {checked}. {licenseNote}To confirm a current license, use{' '}
             <ExternalLink href="https://www.trec.texas.gov/license-search/">
               TREC’s License Holder Search
             </ExternalLink>
@@ -223,9 +219,9 @@ const licenseNote = agent.license
     </section>
     <section class="section" style="padding-top:0">
       <div class="wrap">
-        <span class="eyebrow">Keep exploring</span>
+        <span class="eyebrow">Keep comparing</span>
         <h2>
-          Meet the other <em>professionals.</em>
+          Meet the other <em>realtors.</em>
         </h2>
         <div class="more-links">
           {related.map((other) => (

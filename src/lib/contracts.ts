@@ -2,9 +2,10 @@ import { z } from 'zod';
 export const ORIGIN = 'https://realtorscypresstx.com';
 export const SPONSORED_SLUG = 'lippincott-team';
 export const FACTS_CHECKED = 'October 14, 2026';
-// HAR feedback on the sponsored organization belongs to its named individual.
+// HAR feedback on an organization belongs to its named individual.
 const teamRatingSubjects: Readonly<Record<string, string>> = {
   [SPONSORED_SLUG]: 'Amy Lippincott',
+  'cy-fair-real-estate': 'Jim Mulholland',
 };
 const text = z.string().trim().min(1);
 const webUrl = text.refine((value) => {
@@ -43,6 +44,7 @@ export const agentSchema = z
       .regex(/^\+[1-9]\d{6,14}$/)
       .optional(),
     license: text.optional(),
+    checked: text.optional(),
     intro: text,
     short: text,
     draft: z.boolean().default(false),
@@ -97,7 +99,7 @@ export const agentSchema = z
 export type Agent = z.infer<typeof agentSchema>;
 const directorySchema = z
   .array(agentSchema)
-  .length(7)
+  .length(8)
   .superRefine((data, ctx) => {
     if (new Set(data.map((a) => a.slug)).size !== data.length)
       ctx.addIssue({ code: 'custom', message: 'Duplicate profile slug' });
@@ -189,5 +191,5 @@ export function jsonLd(input: unknown) {
   return JSON.stringify(input).replaceAll('<', '\\u003c');
 }
 export function isTeam(agent: Pick<Agent, 'type'>) {
-  return /(?:^| )team$/i.test(agent.type);
+  return /(?:^| )(?:team|brokerage)$/i.test(agent.type);
 }

@@ -144,7 +144,7 @@ test('PBT invalid rating counts cannot be published', () =>
 test('PBT reorder preserves all identities and sponsored placement', () =>
   fc.assert(
     fc.property(
-      fc.shuffledSubarray(agents, { minLength: 7, maxLength: 7 }),
+      fc.shuffledSubarray(agents, { minLength: 8, maxLength: 8 }),
       (data) => {
         const sorted = orderProfiles(parseDirectory(data));
         expect(sorted[0].slug).toBe('lippincott-team');

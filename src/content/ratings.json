@@ -38,5 +38,15 @@
     "scope": "Individual agent; not a team-wide or Cypress-only score",
     "checked": "2026-10-14",
     "source": "https://www.har.com/tiffani-reynolds/agent_tiffanir"
+  },
+  "cy-fair-real-estate": {
+    "subject": "Jim Mulholland",
+    "value": 4.95,
+    "count": 72,
+    "platform": "HAR Client Experience Rating",
+    "count_type": "completed surveys",
+    "scope": "Individual agent; not a team-wide or Cypress-only score",
+    "checked": "2026-10-15",
+    "source": "https://har.com/cy-fair-real-estate/broker_mulh01"
   }
 }

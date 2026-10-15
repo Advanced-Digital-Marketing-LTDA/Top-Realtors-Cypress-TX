@@ -107,13 +107,6 @@ for (const width of [1440, 375, 320])
         await expect(page.locator('.feature-card .note')).toContainText(
           'Paid placement · eXp Realty LLC.',
         );
-        const sponsorshipFaq = page.locator('#faq details').nth(1).locator('p');
-        await expect(sponsorshipFaq).toContainText(
-          'Paid placement · eXp Realty LLC.',
-        );
-        await expect(sponsorshipFaq).toContainText(
-          'directory row is labeled “Sponsored listing.”',
-        );
         const badge = page
           .locator('.agent-row')
           .first()

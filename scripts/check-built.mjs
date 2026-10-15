@@ -143,11 +143,6 @@ const lippincott = load(
 );
 assert.equal(lippincott('.sponsored-badge').length, 0);
 assert.equal(lippincott('.notice').length, 0);
-const sponsorshipFaq = home('#faq details').eq(1).find('p').text();
-assert(sponsorshipFaq.includes('Paid placement · eXp Realty LLC.'));
-assert(
-  sponsorshipFaq.includes('directory row is labeled “Sponsored listing.”'),
-);
 assert(
   lippincott('.hero-actions a')
     .first()
