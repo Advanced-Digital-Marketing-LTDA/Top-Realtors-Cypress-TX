@@ -15,6 +15,17 @@ function files(dir) {
 }
 
 const count = (text, re) => (text.match(re) ?? []).length;
+const stripComments = (text) =>
+  text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+const declaration = /^(?:it|test)((?:\.\w+)*)\s*\(/;
+function countTests(text) {
+  return stripComments(text)
+    .split('\n')
+    .filter((line) => {
+      const m = declaration.exec(line.trimStart());
+      return m !== null && !/\.(?:skip|todo|fixme)\b/.test(m[1]);
+    }).length;
+}
 const all = roots
   .flatMap(files)
   .filter((f) => resolve(f) !== resolve('scripts/ratchet.mjs'));
@@ -22,18 +33,14 @@ const all = roots
 const metrics = { tests: 0, suppressions: 0, typeEscapes: 0 };
 for (const f of all) {
   const text = readFileSync(f, 'utf8');
-  if (/\.(test|spec)\./.test(f))
-    metrics.tests += count(
-      text,
-      /^\s*(?:it|test)(?:\.(?!skip|todo|fixme)\w+)*\s*\(/gm,
-    );
+  if (/\.(test|spec)\./.test(f)) metrics.tests += countTests(text);
   metrics.suppressions += count(
     text,
     /eslint-disable|@ts-ignore|@ts-expect-error|@ts-nocheck|prettier-ignore/g,
   );
   metrics.typeEscapes += count(
     text,
-    /:\s*any\b|\bas any\b|\bas unknown as\b|<any>/g,
+    /[:=<,]\s*any\b|\bas any\b|\bas unknown as\b/g,
   );
 }
 
