@@ -83,7 +83,7 @@ Homepage directory rows now list each profile's existing `highlights.specialties
 
 ## October 15, 2026 copy rewrite and Cy-Fair Real Estate (CRG-6)
 
-Shared copy (navigation, footer, calls to action, metadata, homepage, FAQ, profile-page framing, Terms, Privacy, 404) now uses a first-person-plural voice. The Lippincott Team stays first as “our #1 choice,” described as an editorial recommendation. The feature card keeps “Paid placement” and the directory row keeps “Sponsored listing”; the sitewide banner, footer, meta description and FAQ sponsorship lines were removed, and the relationship is disclosed on Terms. Existing verified profile facts are unchanged.
+Shared copy (navigation, footer, calls to action, metadata, homepage, FAQ, profile-page framing, Terms, Privacy, 404) now uses a first-person-plural voice. The Lippincott Team stays first as “our #1 choice,” described as an editorial recommendation. Per the owner, paid-placement language now appears only on Terms and the “Sponsored listing” badge on Lippincott’s directory row; it was removed from the feature card, banner, footer, meta description and FAQ, and `rel="sponsored"` was removed from links. The feature card moved back into the hero. Existing verified profile facts are unchanged.
 
 Added `/realtors/cy-fair-real-estate.html` from HAR (broker page, Jim Mulholland profile, biography, client comments) and cyfairrealestate.com, checked October 15, 2026. Its HAR rating (4.95, 72 surveys) is attributed to broker of record Jim Mulholland. No license number is shown: HAR and the firm's site list none, and no TREC registry lookup was done. `isTeam` now classifies a “brokerage” type as an Organization; the directory contract is eight profiles.
 

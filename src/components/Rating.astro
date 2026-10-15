@@ -22,7 +22,7 @@ const { agent, rating } = Astro.props;
         <ExternalLink href={rating.source}>{rating.platform}</ExternalLink> ·
         Checked <time datetime={rating.checked}>{rating.checked}</time>
         <br />
-        {rating.scope}. Placement is separate from ratings.
+        {rating.scope}.
       </p>
     </>
   ) : (

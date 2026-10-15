@@ -1,11 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import type { Agent, Rating } from '../../lib/contracts';
-import {
-  FACTS_CHECKED,
-  SPONSORED_SLUG,
-  profilePath,
-} from '../../lib/contracts';
+import { FACTS_CHECKED, profilePath } from '../../lib/contracts';
 import { getDirectory, profileSchema } from '../../lib/content';
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
@@ -54,11 +50,7 @@ const licenseNote = agent.license
             <div class="brokerage">{agent.brokerage}</div>
             <p class="lede">{agent.intro}</p>
             <div class="hero-actions">
-              <ExternalLink
-                href={agent.official}
-                class="btn btn-gold"
-                paid={agent.slug === SPONSORED_SLUG}
-              >
+              <ExternalLink href={agent.official} class="btn btn-gold">
                 {agent.official_label ?? 'Visit official website'}
               </ExternalLink>
               <ExternalLink href={agent.har} class="text-link">

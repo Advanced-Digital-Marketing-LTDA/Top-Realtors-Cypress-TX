@@ -42,6 +42,7 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
               </a>
             </div>
           </div>
+          <Featured agent={team} />
         </div>
         <figure class="hero-photo">
           <img
@@ -124,9 +125,6 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
             alphabetically. Open a profile to see specialties, areas, recent
             sales and client comments, each with its source.
           </p>
-        </div>
-        <div class="directory-feature">
-          <Featured agent={team} />
         </div>
         {agents.map((agent) => (
           <AgentRow agent={agent} rating={ratings[agent.slug]} />
