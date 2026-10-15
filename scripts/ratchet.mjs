@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
-import { join, extname } from 'node:path';
+import { join, extname, resolve } from 'node:path';
 
 const baselinePath = 'ratchet-baseline.json';
 const roots = ['src', 'tests', 'scripts'];
@@ -15,7 +15,9 @@ function files(dir) {
 }
 
 const count = (text, re) => (text.match(re) ?? []).length;
-const all = roots.flatMap(files).filter((f) => f !== 'scripts/ratchet.mjs');
+const all = roots
+  .flatMap(files)
+  .filter((f) => resolve(f) !== resolve('scripts/ratchet.mjs'));
 
 const metrics = { tests: 0, suppressions: 0, typeEscapes: 0 };
 for (const f of all) {
