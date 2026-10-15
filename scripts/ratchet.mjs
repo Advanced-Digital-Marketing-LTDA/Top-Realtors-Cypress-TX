@@ -23,7 +23,10 @@ const metrics = { tests: 0, suppressions: 0, typeEscapes: 0 };
 for (const f of all) {
   const text = readFileSync(f, 'utf8');
   if (/\.(test|spec)\./.test(f))
-    metrics.tests += count(text, /^\s*(?:it|test)(?:\.\w+)*\s*\(/gm);
+    metrics.tests += count(
+      text,
+      /^\s*(?:it|test)(?:\.(?!skip|todo|fixme)\w+)*\s*\(/gm,
+    );
   metrics.suppressions += count(
     text,
     /eslint-disable|@ts-ignore|@ts-expect-error|@ts-nocheck|prettier-ignore/g,
