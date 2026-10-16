@@ -687,5 +687,103 @@
       ],
       "experience": "Licensed since 2022"
     }
+  },
+  {
+    "slug": "cy-fair-real-estate",
+    "name": "Cy-Fair Real Estate",
+    "initials": "CF",
+    "type": "Independent brokerage",
+    "brokerage": "Cy-Fair Real Estate",
+    "phone": "832-303-1018",
+    "tel": "+18323031018",
+    "official": "http://www.cyfairrealestate.com/",
+    "har": "https://har.com/cy-fair-real-estate/broker_mulh01",
+    "checked": "October 15, 2026",
+    "intro": "Cy-Fair Real Estate is a small independent brokerage based in Cypress (77433), led by broker and owner Jim Mulholland. HAR credits the firm with 271 homes sold and 107 leases, and lists English- and Spanish-speaking agents. Jim’s individual HAR rating is 4.95 from 72 surveys, and June 2026 clients praised his grasp of market trends.",
+    "short": "Independent Cypress brokerage led by broker-owner Jim Mulholland. 271 homes sold and 107 leases on HAR, with English- and Spanish-speaking agents.",
+    "facts": [
+      {
+        "text": "The brokerage office is at 18810 Ellis Bend Drive in Cypress (77433). Jim Mulholland is its broker of record. HAR lists six agents and notes that its agents speak English and Spanish.",
+        "source": 0
+      },
+      {
+        "text": "HAR credits the brokerage with 271 homes sold and 107 leases. In October 2026 it had seven active listings averaging about $476K, and its sold homes averaged about $171 per square foot.",
+        "source": 0
+      },
+      {
+        "text": "Recent brokerage sales on HAR include Cypress homes in the 77433 and 77429 ZIP codes in roughly the $480K to $720K range, and Spring homes around $325K to $370K. Recent leases in 77433 were about $2,000 to $3,000 a month.",
+        "source": 0
+      },
+      {
+        "text": "Jim Mulholland’s own HAR record shows sales from May 2022 through August 2026, from a $85K Hockley lot to Cypress homes listed around $1.25M, with recent closings in Cypress and Spring in August 2026.",
+        "source": 1
+      },
+      {
+        "text": "Before real estate, Jim earned an engineering degree from Texas A&M and spent more than 15 years in the computer industry, according to his HAR biography.",
+        "source": 2
+      },
+      {
+        "text": "The firm’s website says it serves Cypress, Hockley and Northwest Houston, and has served Cypress for over 15 years (self-reported). Sellers can request a free market analysis, and buyers can set up a personalized home search.",
+        "source": 3
+      },
+      {
+        "text": "Its website blog had new posts in October 2026, including a guide to Bridgeland’s Lakeland Village in August 2026.",
+        "source": 3
+      },
+      {
+        "text": "In June 2026 HAR comments, a seller on Paddlefish Way said Jim had sold two of their homes and praised his attention to market trends. A buyer called him “the greatest.”",
+        "source": 4
+      }
+    ],
+    "sources": [
+      {
+        "label": "Cy-Fair Real Estate on HAR",
+        "url": "https://har.com/cy-fair-real-estate/broker_mulh01",
+        "supports": "Office address, broker of record, agent roster, languages, sales and lease counts and listing prices."
+      },
+      {
+        "label": "Jim Mulholland on HAR",
+        "url": "https://www.har.com/mulholland",
+        "supports": "Jim Mulholland’s sales history, price range and recent closings."
+      },
+      {
+        "label": "Jim Mulholland HAR biography",
+        "url": "https://www.har.com/web/mulholland/resources/aboutme",
+        "supports": "Broker-owner role and background before real estate."
+      },
+      {
+        "label": "Cy-Fair Real Estate website",
+        "url": "http://www.cyfairrealestate.com/",
+        "supports": "Service area, years serving Cypress, seller and buyer tools and recent blog posts."
+      },
+      {
+        "label": "Jim Mulholland HAR client comments",
+        "url": "https://www.har.com/jim-mulholland/ratings_mully",
+        "supports": "Individual survey rating and dated June 2026 client comments."
+      }
+    ],
+    "highlights": {
+      "specialties": [
+        "Buyer and seller representation",
+        "Free market analysis for sellers",
+        "Leasing",
+        "Spanish-speaking agents"
+      ],
+      "areas": [
+        "Cypress",
+        "Copperfield",
+        "Hockley",
+        "Spring",
+        "Katy",
+        "Northwest Houston"
+      ],
+      "experience": "Broker-owner Jim Mulholland; the firm reports serving Cypress for over 15 years",
+      "languages": [
+        "English",
+        "Spanish"
+      ],
+      "team": "Six agents listed on HAR, led by broker of record Jim Mulholland",
+      "reviews": "June 2026 HAR comments for Jim Mulholland praise his attention to market trends, including from a seller he helped with two homes."
+    }
   }
 ]

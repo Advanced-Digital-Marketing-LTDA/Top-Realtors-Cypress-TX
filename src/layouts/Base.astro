@@ -1,7 +1,7 @@
 ---
 import '../styles/site.css';
 import { site } from '../lib/content';
-import { canonical, jsonLd, FACTS_CHECKED } from '../lib/contracts';
+import { canonical, jsonLd } from '../lib/contracts';
 import ExternalLink from '../components/ExternalLink.astro';
 interface Props {
   title: string;
@@ -45,8 +45,7 @@ const robots =
       Skip to content
     </a>
     <div class="demo-bar">
-      <span>CYPRESS, TEXAS</span> · Sourced profiles · Sponsored placements
-      labeled
+      <span>CYPRESS, TEXAS</span> · Realtor profiles with linked sources
     </div>
     <header>
       <div class="wrap header-in">
@@ -59,13 +58,13 @@ const robots =
           </span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="/#directory">The directory</a>
-          <a href="/#methodology">Our sources</a>
+          <a href="/#directory">Realtors</a>
+          <a href="/#methodology">How we check</a>
           <a href="/#neighborhoods">Neighborhoods</a>
           <a href="/#faq">FAQ</a>
         </nav>
         <a class="btn btn-gold" href="/#directory">
-          Find a profile
+          Compare realtors
         </a>
       </div>
     </header>
@@ -78,24 +77,24 @@ const robots =
               Top Realtors Cypress TX
             </a>
             <p>
-              An editorial directory. Sponsored placements are labeled; other
-              profiles appear alphabetically. Third-party ratings do not
-              determine placement. Contact each professional directly.
+              Our guide to Cypress, Texas realtors. The Lippincott Team is our
+              #1 choice; everyone else is listed A to Z. Ratings don’t decide
+              the order. Contact each realtor directly.
             </p>
           </div>
           <div class="footer-nav">
-            <a href="/#directory">All profiles</a>
-            <a href="/#methodology">Sources &amp; standards</a>
+            <a href="/#directory">All realtors</a>
+            <a href="/#methodology">How we check facts</a>
             <a href="/terms.html">Terms</a>
             <a href="/privacy.html">Privacy</a>
           </div>
         </div>
         <div class="footer-bottom">
           <span>
-            Profile sources reviewed {FACTS_CHECKED} · Ratings carry their own
-            check dates
+            Sources checked October 14–15, 2026 · Each rating shows its own
+            check date
           </span>
-          <span>Confirm current details with the professional.</span>
+          <span>Confirm current details with the realtor.</span>
         </div>
         <div class="regulatory-links">
           <ExternalLink href="https://content.harstatic.com/pdf/TREC_CPN.pdf">

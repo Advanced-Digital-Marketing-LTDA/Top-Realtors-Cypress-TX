@@ -20,10 +20,9 @@ const { agent } = Astro.props;
   </div>
   <p>{agent.short}</p>
   <a class="btn btn-gold" href={profilePath(agent)}>
-    Meet the team
+    See why we chose them
   </a>
   <p class="note">
-    Paid placement · {agent.brokerage}.{' '}
-    <ExternalLink href={agent.har}>View the source profile</ExternalLink>.
+    <ExternalLink href={agent.har}>View the HAR profile</ExternalLink>
   </p>
 </aside>

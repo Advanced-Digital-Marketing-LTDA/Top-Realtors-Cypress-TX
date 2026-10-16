@@ -10,7 +10,7 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
 
 <Base
   title={'Cypress TX Realtors Reviews | Top Realtors Cypress TX'}
-  description={`Compare ${agents.length} Cypress, Texas agent and team profiles, stated specialties, HAR feedback where available, official links, and local community resources. Sponsored placements are labeled.`}
+  description={`We compare ${agents.length} Cypress, Texas realtors, teams and brokerages: specialties, areas served, HAR client ratings and recent sales, each linked to its source.`}
   path="/"
   schema={directorySchema(agents)}
 >
@@ -20,28 +20,29 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
         <div class="hero-grid">
           <div>
             <span class="eyebrow">
-              Cypress, Texas · {agents.length} professional profiles
+              Cypress, Texas · {agents.length} realtor profiles
             </span>
             <h1>
               Compare Cypress, TX realtors.
               <br />
-              Find your <em>personal fit.</em>
+              Find your <em>right fit.</em>
             </h1>
             <p class="lede">
-              Explore {agents.length} individual real estate agent and team
-              profiles serving Cypress, Texas. Compare stated specialties,
-              linked HAR ratings and comments where available, and official
-              professional profiles before your first call.
+              We read the HAR records, client comments and websites of{' '}
+              {agents.length} Cypress agents, teams and brokerages, then pulled
+              out what buyers and sellers need: who does what, where they work,
+              recent sales and what clients say.
             </p>
             <div class="hero-actions">
               <a class="btn btn-gold" href="#directory">
-                Compare agent profiles
+                Compare the realtors
               </a>
               <a class="text-link" href="#methodology">
-                How this guide is sourced
+                How we check our facts
               </a>
             </div>
           </div>
+          <Featured agent={team} />
         </div>
         <figure class="hero-photo">
           <img
@@ -81,25 +82,25 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
           <div>
             <b>{String(agents.length).padStart(2, '0')}</b>
             <span>
-              Individual profiles
+              Realtor profiles
               <br />
-              with original sources
+              with linked sources
             </span>
           </div>
           <div>
             <b>05</b>
             <span>
-              Community resources
+              Cypress communities
               <br />
-              to explore locally
+              to start exploring
             </span>
           </div>
           <div>
             <b>01</b>
             <span>
-              Clear starting point
+              Editorial pick:
               <br />
-              for your own research
+              The Lippincott Team
             </span>
           </div>
         </div>
@@ -110,22 +111,20 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
         <div class="section-intro">
           <div>
             <span class="eyebrow">
-              The directory · Sponsored first, then alphabetical
+              The directory · Our #1 choice, then A to Z
             </span>
             <h2>
-              Explore the profiles.
+              Meet the realtors.
               <br />
-              Find your <em>personal fit.</em>
+              Shortlist your <em>favorites.</em>
             </h2>
           </div>
           <p>
-            Compare each professional’s stated specialties, linked sources and
-            public business contacts. Use the profiles to prepare for
-            interviews; this directory is not a performance ranking.
+            The Lippincott Team is our #1 choice, an editorial recommendation
+            rather than a calculated ranking. Everyone else is listed
+            alphabetically. Open a profile to see specialties, areas, recent
+            sales and client comments, each with its source.
           </p>
-        </div>
-        <div class="directory-feature">
-          <Featured agent={team} />
         </div>
         {agents.map((agent) => (
           <AgentRow agent={agent} rating={ratings[agent.slug]} />
@@ -134,48 +133,46 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
     </section>
     <section class="section dark" id="methodology">
       <div class="wrap">
-        <span class="eyebrow">Sources &amp; standards</span>
+        <span class="eyebrow">How we check facts</span>
         <h2>
-          A useful guide starts with
+          We only publish what
           <br />
-          <em>being clear about the facts.</em>
+          <em>we can link to.</em>
         </h2>
         <div class="method-grid">
           <article>
-            <span class="step">01 / TRACE THE SOURCE</span>
-            <h3>Show where it came from.</h3>
+            <span class="step">01 / LINK EVERY FACT</span>
+            <h3>We show where it came from.</h3>
             <p>
-              Each profile links to HAR and the professional’s own public pages.
-              Brokerage details and selected background statements are
-              attributed to those sources.
+              Every fact on a profile carries a link to the HAR page or website
+              we read it on, so you can check it yourself.
             </p>
           </article>
           <article>
-            <span class="step">02 / LEAVE OUT THE GUESSWORK</span>
-            <h3>Keep claims in proportion.</h3>
+            <span class="step">02 / LEAVE OUT GUESSWORK</span>
+            <h3>We label what’s self-reported.</h3>
             <p>
-              HAR survey ratings show their source, count, subject and check
-              date. Credentials, awards and service areas are attributed to HAR
-              or the professional’s own website. Self-published sales totals are
-              not treated as independently audited performance evidence.
+              HAR ratings show whose rating it is, how many surveys and when we
+              checked. Awards and totals a realtor publishes about themselves
+              are marked as self-reported. If we can’t verify something, we
+              leave it out.
             </p>
           </article>
           <article>
-            <span class="step">03 / CHECK WHAT MATTERS</span>
-            <h3>Confirm before you commit.</h3>
+            <span class="step">03 / CONFIRM BEFORE YOU SIGN</span>
+            <h3>Ask before you commit.</h3>
             <p>
-              Public pages can change or lag behind reality. Check current
-              licensing, brokerage, services, fees, and availability with the
-              professional and relevant official sources.
+              Listings and rosters change. Confirm licensing, brokerage,
+              services, fees and availability with the realtor, and check
+              licenses with TREC.
             </p>
           </article>
         </div>
         <p class="method-note">
-          Reviewed HAR profiles and public comments, and each linked agent
-          website on October 14, 2026. We did not interview agents, audit every
-          review, test address-level knowledge, or score comparative
-          performance. Use these profiles to guide your own research, not as an
-          endorsement.
+          We reviewed HAR profiles, public client comments and each linked
+          website on October 14 and 15, 2026. We did not interview the realtors,
+          hire them, audit every review or score their performance. Use these
+          profiles to build your shortlist, then talk to the people on it.
         </p>
       </div>
     </section>
@@ -189,9 +186,9 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
             </h2>
           </div>
           <p>
-            Use these community and association websites to explore the details.
-            School assignments, taxes, and restrictions should be checked for a
-            specific property.
+            These official community and association sites are where we’d start.
+            Check school zoning, taxes, MUD fees and deed restrictions for the
+            specific home you’re considering.
           </p>
         </div>
         <div class="hood-grid">
@@ -283,7 +280,7 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
       <div class="wrap">
         <span class="eyebrow">Before the first call</span>
         <h2>
-          Bring questions that <em>matter to you.</em>
+          Questions we’d <em>ask first.</em>
         </h2>
         <div class="question-grid">
           <article class="question-box">
@@ -314,16 +311,16 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
             </h3>
             <ul>
               <li>
-                What experience do you have in the neighborhoods I’m
+                What have you sold recently in the neighborhoods I’m
                 considering?
               </li>
               <li>
-                How will we check property-specific taxes, restrictions, and
-                other costs?
+                How will we check this home’s tax rate, MUD fees and deed
+                restrictions?
               </li>
               <li>
-                What should I understand about representation and compensation
-                before touring?
+                What does your buyer agreement say about your compensation, and
+                who pays it?
               </li>
             </ul>
           </article>
@@ -332,67 +329,54 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
     </section>
     <section class="section faq" id="faq">
       <div class="wrap">
-        <span class="eyebrow">A few fair questions</span>
+        <span class="eyebrow">Common questions</span>
         <h2>
-          Clear from the <em>start.</em>
+          What you might <em>be wondering.</em>
         </h2>
         <div class="faq-list">
           <details>
-            <summary>Is this a ranking of the best agents?</summary>
+            <summary>Is this a ranking of the best realtors?</summary>
             <p>
-              This is an editorial directory, not a performance ranking. The
-              Lippincott Team appears first as a sponsored listing; other
-              profiles are alphabetical. Where shown, HAR survey ratings belong
-              to the named individual and may not represent a full team or
-              Cypress-only work. Ratings do not determine placement.
+              No. The Lippincott Team is our #1 choice, which is an editorial
+              recommendation, not a calculated ranking. Everyone else is listed
+              alphabetically. HAR ratings belong to the named individual, may
+              not cover a whole team or only Cypress sales, and don’t decide the
+              order.
             </p>
           </details>
           <details>
-            <summary>Is the featured placement sponsored?</summary>
+            <summary>What did you actually check?</summary>
             <p>
-              Yes. The Lippincott Team pays the publisher to create this site.
-              The homepage feature card shows “Paid placement · eXp Realty LLC.”
-              The directory row is labeled “Sponsored listing.”
-            </p>
-          </details>
-          <details>
-            <summary>What was actually checked?</summary>
-            <p>
-              We reviewed HAR profiles and public comments, plus each
-              professional’s linked website, for specialties, service areas,
-              credentials, survey feedback and recent activity. Some details are
-              self-reported or team-wide. This is not an independent audit of
-              sales, reviews, reputation, or local knowledge.
+              We read each realtor’s HAR profile, sales and lease history,
+              public client comments and website for specialties, service areas,
+              credentials and recent activity. Some details are self-reported,
+              and we say so. We did not audit sales, reviews or local knowledge.
             </p>
           </details>
           <details>
             <summary>How current is the information?</summary>
             <p>
-              HAR and agent website sources were reviewed on October 14, 2026.
-              The site is a fixed snapshot and does not update automatically. A
-              linked source can itself be outdated; confirm current affiliation,
-              licensing, services, and availability directly before relying on
-              them.
+              We checked our sources on October 14 and 15, 2026. Each rating
+              shows its own check date. Pages don’t update automatically, so
+              confirm a realtor’s brokerage, license, services and availability
+              with them before you rely on it.
             </p>
           </details>
           <details>
-            <summary>Can I contact an agent here?</summary>
+            <summary>How do I contact a realtor?</summary>
             <p>
-              Each profile links to the professional’s public website and HAR
-              page. Where included, phone numbers are public business contacts
-              from those sources. This site does not collect or forward
-              inquiries; contact terms and any fees should be confirmed
-              directly.
+              Use the website link or the public business phone on each profile.
+              We don’t collect or forward inquiries, and we don’t set anyone’s
+              fees, so confirm terms with the realtor directly.
             </p>
           </details>
           <details id="privacy">
-            <summary>Does this site collect my contact details?</summary>
+            <summary>Do you collect my contact details?</summary>
             <p>
-              There are no inquiry forms, email signups, or lead-submission
-              features on this site. Outbound links open other sites, which have
-              their own privacy practices. The selected host may process routine
-              technical request information; this build makes no third-party
-              font or analytics request.
+              No. There are no forms, sign-ups or lead capture here, and we load
+              no analytics or third-party fonts. Links to other sites follow
+              their own privacy practices. See our{' '}
+              <a href="/privacy.html">privacy page</a> for details.
             </p>
           </details>
         </div>
@@ -401,13 +385,14 @@ const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
     <section class="final">
       <div class="wrap">
         <div>
-          <h2>Find someone you’d like to talk to.</h2>
+          <h2>Build your shortlist.</h2>
           <p>
-            Read the profile. Check the sources. Make the conversation your own.
+            Read the profiles, check the sources, then call two or three
+            realtors and compare.
           </p>
         </div>
         <a class="btn" href="#directory">
-          Browse all {agents.length} profiles
+          See all {agents.length} realtors
         </a>
       </div>
     </section>

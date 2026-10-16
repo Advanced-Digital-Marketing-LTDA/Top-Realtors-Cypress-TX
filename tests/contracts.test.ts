@@ -111,9 +111,9 @@ test.each([
 test('drafts leave both directory and public route inventory', () => {
   const data = parseDirectory(agents);
   data[2].draft = true;
-  expect(orderProfiles(data)).toHaveLength(6);
+  expect(orderProfiles(data)).toHaveLength(7);
   expect(publicPaths(data)).not.toContain(profilePath(data[2]));
-  expect(publicPaths(parseDirectory(agents))).toHaveLength(10);
+  expect(publicPaths(parseDirectory(agents))).toHaveLength(11);
   expect(new Set(publicPaths(parseDirectory(agents)))).toEqual(
     new Set([
       '/',
@@ -128,15 +128,15 @@ test('individual scope, rating dates and exact subject reject mismatches', () =>
   const data = parseDirectory(agents);
   const changed = structuredClone(ratings);
   changed['lippincott-team'].subject = 'The Lippincott Team';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-15')).toThrow();
   changed['lippincott-team'].subject = 'Amy Lippincott';
-  expect(parseRatingSnapshot(changed, data, '2026-10-14')).toHaveProperty(
+  expect(parseRatingSnapshot(changed, data, '2026-10-15')).toHaveProperty(
     'lippincott-team',
   );
-  changed['lippincott-team'].checked = '2026-10-15';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
+  changed['lippincott-team'].checked = '2026-10-16';
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-15')).toThrow();
   changed['lippincott-team'].checked = '2026-99-99';
-  expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
+  expect(() => parseRatingSnapshot(changed, data, '2026-10-15')).toThrow();
 });
 test('non-sponsored profiles are alphabetical with only leading The ignored', () => {
   const data = parseDirectory(agents);
@@ -157,20 +157,20 @@ test.each(['kevan-pewitt', 'jill-smith', 'tiffani-reynolds'] as const)(
     const data = parseDirectory(agents);
     const changed = structuredClone(ratings);
     changed[key].subject = 'Another individual';
-    expect(() => parseRatingSnapshot(changed, data, '2026-10-14')).toThrow();
+    expect(() => parseRatingSnapshot(changed, data, '2026-10-15')).toThrow();
     const expected = ratings[key];
     changed[key].subject = '  ' + expected.subject + '  ';
-    expect(parseRatingSnapshot(changed, data, '2026-10-14')[key]).toEqual(
+    expect(parseRatingSnapshot(changed, data, '2026-10-15')[key]).toEqual(
       expected,
     );
   },
 );
-test('seven unchanged source profiles and visible placement order', () => {
+test('eight unchanged source profiles and visible placement order', () => {
   const parsed = parseDirectory(agents);
-  expect(parsed).toHaveLength(7);
+  expect(parsed).toHaveLength(8);
   const ordered = orderProfiles(parsed);
   expect(ordered[0].slug).toBe('lippincott-team');
-  expect(new Set(ordered.map((a) => a.slug)).size).toBe(7);
+  expect(new Set(ordered.map((a) => a.slug)).size).toBe(8);
 });
 test.each([-1, 0.5, true, 999])('rejects invalid citation %s', (source) => {
   const changed = structuredClone(agents);
@@ -204,7 +204,7 @@ test('rejects blank content and active URL schemes', () => {
 });
 test('rating provenance required and scope retained', () => {
   const parsed = parseDirectory(agents);
-  expect(Object.keys(parseRatingSnapshot(ratings, parsed))).toHaveLength(4);
+  expect(Object.keys(parseRatingSnapshot(ratings, parsed))).toHaveLength(5);
   const changed = structuredClone(ratings);
   Reflect.deleteProperty(changed['lippincott-team'], 'count');
   expect(() => parseRatingSnapshot(changed, parsed)).toThrow();

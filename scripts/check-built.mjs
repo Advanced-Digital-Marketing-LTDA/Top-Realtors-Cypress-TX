@@ -129,11 +129,9 @@ assert.equal(
 assert.equal(home('.feature-card .identity h3').text(), 'The Lippincott Team');
 assert.equal(home('.feature-card .identity .btn').length, 0);
 assert.equal(home('.feature-card .sponsored-badge').length, 0);
-assert(
-  home('.feature-card .note')
-    .text()
-    .includes('Paid placement · eXp Realty LLC.'),
-);
+assert.equal(home('.hero .feature-card').length, 1);
+assert(!/paid|sponsor/i.test(home('.feature-card').text()));
+assert.equal(home('.sponsored-badge').length, 1);
 assert.equal(
   home('.agent-row').first().find('.sponsored-badge').text(),
   'Sponsored listing',
@@ -143,17 +141,11 @@ const lippincott = load(
 );
 assert.equal(lippincott('.sponsored-badge').length, 0);
 assert.equal(lippincott('.notice').length, 0);
-const sponsorshipFaq = home('#faq details').eq(1).find('p').text();
-assert(sponsorshipFaq.includes('Paid placement · eXp Realty LLC.'));
+assert(!/paid|sponsor/i.test(lippincott('body').text()));
 assert(
-  sponsorshipFaq.includes('directory row is labeled “Sponsored listing.”'),
-);
-assert(
-  lippincott('.hero-actions a')
-    .first()
-    .attr('rel')
-    .split(' ')
-    .includes('sponsored'),
+  !lippincott('a[rel]')
+    .toArray()
+    .some((a) => /sponsored/.test(lippincott(a).attr('rel'))),
 );
 const sitemap = load(fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8'), {
   xml: true,

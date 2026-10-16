@@ -128,7 +128,7 @@ test('restoring tracked content recovers the complete static build', () => {
   const result = build();
   expect(result.status, result.stdout + result.stderr).toBe(0);
   const $ = load(readFileSync(join(root, 'dist/index.html'), 'utf8'));
-  expect($('.agent-row')).toHaveLength(7);
+  expect($('.agent-row')).toHaveLength(8);
   expect(existsSync(join(root, 'dist/realtors/michele-harmon.html'))).toBe(
     true,
   );
@@ -193,7 +193,7 @@ test('browser test inventory omits a draft profile and retains published routes'
     expect(
       titles.filter((title) => title.includes('/realtors/michele-harmon.html')),
     ).toEqual([]);
-    expect(titles).toHaveLength(36);
+    expect(titles).toHaveLength(39);
     for (const width of [1440, 375, 320]) {
       expect(titles).toContain(`${width}px no-JS /`);
       expect(titles).toContain(

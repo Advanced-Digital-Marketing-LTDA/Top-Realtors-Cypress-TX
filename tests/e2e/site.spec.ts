@@ -104,16 +104,13 @@ for (const width of [1440, 375, 320])
         await expect(
           page.locator('.feature-card .sponsored-badge'),
         ).toHaveCount(0);
-        await expect(page.locator('.feature-card .note')).toContainText(
-          'Paid placement · eXp Realty LLC.',
+        await expect(page.locator('.feature-card')).not.toContainText(
+          /paid|sponsor/i,
         );
-        const sponsorshipFaq = page.locator('#faq details').nth(1).locator('p');
-        await expect(sponsorshipFaq).toContainText(
-          'Paid placement · eXp Realty LLC.',
-        );
-        await expect(sponsorshipFaq).toContainText(
-          'directory row is labeled “Sponsored listing.”',
-        );
+        if (width === 1440)
+          expect(
+            (await page.locator('.hero .feature-card').boundingBox())!.y,
+          ).toBeLessThan(page.viewportSize()!.height);
         const badge = page
           .locator('.agent-row')
           .first()

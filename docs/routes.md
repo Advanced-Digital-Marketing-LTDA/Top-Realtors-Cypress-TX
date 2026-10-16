@@ -1,11 +1,11 @@
 # Route contracts
 
-Adapted from Site-Bootstrap-ADM's route matrix. Canonical origin: https://realtorscypresstx.com; base /; file-style .html profile/legal URLs; root / remains root. Existing seven URLs are preserved without a redirect migration.
+Adapted from Site-Bootstrap-ADM's route matrix. Canonical origin: https://realtorscypresstx.com; base /; file-style .html profile/legal URLs; root / remains root. The original seven URLs are preserved without a redirect migration; /realtors/cy-fair-real-estate.html was added October 15, 2026.
 
 | Path/family                         | Render/access                             | Mutation | Indexing/cache                                           | Analytics | Verification                                 |
 | ----------------------------------- | ----------------------------------------- | -------- | -------------------------------------------------------- | --------- | -------------------------------------------- |
 | /                                   | Astro static, public                      | None     | Preview noindex; canonical root; Nginx no-cache          | None      | Directory/schema/order, keyboard, responsive |
-| /realtors/{seven stable slugs}.html | Astro collection + getStaticPaths, public | None     | Preview noindex; own canonical; no-cache                 | None      | Exact source facts/contact escaping/ratings  |
+| /realtors/{eight stable slugs}.html | Astro collection + getStaticPaths, public | None     | Preview noindex; own canonical; no-cache                 | None      | Exact source facts/contact escaping/ratings  |
 | /terms.html                         | Astro static, public                      | None     | Preview noindex, canonical, no-cache                     | None      | Relationship/readability                     |
 | /privacy.html                       | Astro static, public                      | None     | Preview noindex, canonical, no-cache                     | None      | No intake/tracker/font requests              |
 | /404.html and unknown paths         | Static body; Nginx404                     | None     | Always noindex; no-cache; excluded sitemap               | None      | Actual status/body, recovery link            |
