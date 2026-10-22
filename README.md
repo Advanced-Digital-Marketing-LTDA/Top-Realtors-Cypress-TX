@@ -26,8 +26,15 @@ Edit profile facts in `src/content/realtors.json`, rated-agent snapshots in `src
 
 The multi-stage Dockerfile builds with Node and serves only Astro output through non-root Nginx8080. `/healthz` tests that the built homepage is available; `/build.json` identifies the supplied source SHA. No Python or Node runtime is shipped in the final image. Docker builds require an explicit `SOURCE_COMMIT` build argument: the full approved lowercase 40-character SHA for release, or `--build-arg SOURCE_COMMIT=local` for a disposable development image. Missing or invalid markers fail the build.
 
-Use the [Coolify runbook](docs/coolify.md), [verification evidence](docs/verification.md), [plan amendment](docs/project-plan.md), [bootstrap requirement map](docs/bootstrap-tasks.md), [routes](docs/routes.md), [environment registry](docs/environment.md) and [invariants](docs/testing-invariants.md). Site-Bootstrap-ADM includes guidance/templates and a runnable demo, not a finished Astro application; this target instantiates its actual shared-layout/content/SEO/test/container contracts. The copied property-options helper and adapted templates retain their [MIT notice](docs/vendor/Site-Bootstrap-ADM-LICENSE.txt).
+Use the [Coolify runbook](docs/coolify.md), [verification evidence](docs/verification.md), [plan amendment](docs/project-plan.md), [bootstrap requirement map](docs/bootstrap-tasks.md), [routes](docs/routes.md), [environment registry](docs/environment.md) and [invariants](docs/testing-invariants.md). Site-Bootstrap-ADM includes guidance/templates and a runnable demo, not a finished Astro application; this target instantiates its actual shared-layout/content/SEO/test/container contracts.
 
 The canonical HTTPS origin is fixed to `https://realtorscypresstx.com`, profile URLs end in `.html`, and indexing is enabled for the authorized public launch. Indexing changes require a source change/rebuild. Live deployment evidence is recorded in the release handoff; real CI, DNS/TLS/redirects, log practices and rollback require actual host verification.
 
-`docs/export-verification.md` and `docs/pr1-triage.md` are historical records of the superseded export. [ATTRIBUTION.md](ATTRIBUTION.md) preserves photo provenance; no new overall code/design license is asserted.
+`docs/export-verification.md` and `docs/pr1-triage.md` are historical records of the superseded export. [ATTRIBUTION.md](ATTRIBUTION.md) preserves photo provenance.
+
+## License
+
+Top Realtors Cypress TX is licensed under the [PolyForm Shield License 1.0.0](LICENSE).
+Commercial use is permitted when it complies with that license. For uses not
+permitted by PolyForm Shield, see [commercial licensing](COMMERCIAL.md).
+Third-party components and the photos credited in [ATTRIBUTION.md](ATTRIBUTION.md) keep their own licenses.

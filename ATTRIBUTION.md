@@ -14,8 +14,8 @@ Preserve attribution and applicable share-alike requirements for adaptations. Th
 
 ## Foundation and content
 
-Site-Bootstrap-ADM `916df29d7410b4a9a5048ed69819b5da448a2ecf` supplies original setup guidance/templates and the reused property-options helper. Its MIT notice is retained in docs/vendor/Site-Bootstrap-ADM-LICENSE.txt. The referenced Lippincott example's project code, identity and providers were not copied into the foundation.
+Site-Bootstrap-ADM `916df29d7410b4a9a5048ed69819b5da448a2ecf` supplies original setup guidance/templates and the reused property-options helper. The referenced Lippincott example's project code, identity and providers were not copied into the foundation.
 
 Professional facts/public business contacts remain in src/content/realtors.json and linked source citations. Four individually scoped HAR survey snapshots retain their separate check dates. Sources are public profiles/self-published websites, not independently audited performance records. Company/professional names belong to their owners; paid placement is visibly labeled.
 
-System fonts make no font-service requests and bundle no font binaries. Dependencies retain their package licenses. No overall code/design license was supplied for the inherited design/export, and no new overall grant is invented.
+System fonts make no font-service requests and bundle no font binaries. Dependencies retain their package licenses. The code and design are licensed under the PolyForm Shield License 1.0.0 (LICENSE); the photos above keep their own licenses.
