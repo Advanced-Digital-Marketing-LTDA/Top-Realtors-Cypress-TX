@@ -699,7 +699,7 @@
     "official": "http://www.cyfairrealestate.com/",
     "har": "https://har.com/cy-fair-real-estate/broker_mulh01",
     "checked": "October 15, 2026",
-    "intro": "Cy-Fair Real Estate is a small independent brokerage based in Cypress (77433), led by broker and owner Jim Mulholland. HAR credits the firm with 271 homes sold and 107 leases, and lists English- and Spanish-speaking agents. Jim’s individual HAR rating is 4.95 from 72 surveys, and June 2026 clients praised his grasp of market trends.",
+    "intro": "Cy-Fair Real Estate is a small independent brokerage based in Cypress (77433), led by broker and owner Jim Mulholland. HAR credits the firm with 271 homes sold and 107 leases, and lists English- and Spanish-speaking agents.",
     "short": "Independent Cypress brokerage led by broker-owner Jim Mulholland. 271 homes sold and 107 leases on HAR, with English- and Spanish-speaking agents.",
     "facts": [
       {
@@ -771,10 +771,8 @@
       ],
       "areas": [
         "Cypress",
-        "Copperfield",
         "Hockley",
         "Spring",
-        "Katy",
         "Northwest Houston"
       ],
       "experience": "Broker-owner Jim Mulholland; the firm reports serving Cypress for over 15 years",
