@@ -7,6 +7,9 @@ const teamRatingSubjects: Readonly<Record<string, string>> = {
   [SPONSORED_SLUG]: 'Amy Lippincott',
   'cy-fair-real-estate': 'Jim Mulholland',
 };
+const individualRatingSources: Readonly<Record<string, string>> = {
+  'cy-fair-real-estate': 'https://www.har.com/jim-mulholland/ratings_mully',
+};
 const text = z.string().trim().min(1);
 const webUrl = text.refine((value) => {
   try {
@@ -143,7 +146,11 @@ export function parseRatingSnapshot(
   const parsed = z.record(slug, ratingSchema).parse(input);
   for (const [key, rating] of Object.entries(parsed)) {
     const agent = agents.find((a) => a.slug === key);
-    if (!agent || rating.source !== agent.har)
+    const expectedSource =
+      agent && Object.hasOwn(individualRatingSources, agent.slug)
+        ? individualRatingSources[agent.slug]
+        : agent?.har;
+    if (!agent || rating.source !== expectedSource)
       throw new Error('Rating must match a profile and its HAR source');
     if (rating.checked > asOf)
       throw new Error('Rating check date cannot be in the future');

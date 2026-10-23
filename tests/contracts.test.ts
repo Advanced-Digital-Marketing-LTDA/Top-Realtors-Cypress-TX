@@ -215,6 +215,13 @@ test('rating provenance required and scope retained', () => {
     ),
   ).toThrow();
 });
+test('Cy-Fair rating must cite Jim Mulholland’s individual HAR ratings page', () => {
+  const parsed = parseDirectory(agents);
+  const cyFair = parsed.find((a) => a.slug === 'cy-fair-real-estate');
+  const changed = structuredClone(ratings);
+  changed['cy-fair-real-estate'].source = cyFair!.har;
+  expect(() => parseRatingSnapshot(changed, parsed)).toThrow();
+});
 test('rejects aggregate source mismatches and future/invalid dates', () => {
   const parsed = parseDirectory(agents);
   const changed = structuredClone(ratings);
