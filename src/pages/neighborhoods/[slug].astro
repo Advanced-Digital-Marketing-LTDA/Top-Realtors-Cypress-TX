@@ -1,0 +1,132 @@
+---
+import type { GetStaticPaths } from 'astro';
+import type { Neighborhood } from '../../lib/contracts';
+import {
+  NEIGHBORHOODS,
+  SPONSORED_SLUG,
+  neighborhoodPath,
+  profilePath,
+  servesNeighborhood,
+} from '../../lib/contracts';
+import { getDirectory, neighborhoodSchema } from '../../lib/content';
+import Base from '../../layouts/Base.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+export const getStaticPaths = (() =>
+  NEIGHBORHOODS.map((place) => ({
+    params: { slug: place.slug },
+    props: { place },
+  }))) satisfies GetStaticPaths;
+interface Props {
+  place: Neighborhood;
+}
+const { place } = Astro.props;
+const { agents } = await getDirectory();
+const serving = agents.filter((agent) => servesNeighborhood(agent, place));
+const others = NEIGHBORHOODS.filter((other) => other.slug !== place.slug);
+---
+
+<Base
+  title={`Realtors Serving ${place.name} in Cypress, TX`}
+  description={`${serving.length} Cypress, TX realtors who serve ${place.name}, with links to their profiles, the official community site and what to check before you buy.`}
+  path={neighborhoodPath(place)}
+  schema={neighborhoodSchema(place, serving)}
+>
+  <main id="main">
+    <section class="profile-hero">
+      <div class="wrap">
+        <div class="breadcrumb">
+          <a href="/">Home</a> / <a href="/#neighborhoods">Neighborhoods</a> /{' '}
+          {place.name}
+        </div>
+        <span class="eyebrow">{place.eyebrow} · Cypress, TX</span>
+        <h1>Realtors serving {place.name}</h1>
+        <p class="lede">{place.summary}</p>
+        <div class="hero-actions">
+          <ExternalLink href={place.official} class="btn btn-gold">
+            {place.officialLabel}
+          </ExternalLink>
+          <a class="text-link" href="#realtors">
+            See the {serving.length} realtors
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="realtors">
+      <div class="wrap">
+        <span class="eyebrow">Who works here</span>
+        <h2>
+          {serving.length} realtors who serve <em>{place.name}.</em>
+        </h2>
+        <p>
+          Each of these realtors names {place.name} among the areas they serve,
+          based on the sources on their profile.{' '}
+          {serving[0]?.slug === SPONSORED_SLUG
+            ? 'Our featured pick comes first, then everyone else from A to Z.'
+            : 'They are listed from A to Z.'}
+        </p>
+        <ul class="place-agents">
+          {serving.map((agent) => (
+            <li data-profile={agent.slug}>
+              {agent.slug === SPONSORED_SLUG && (
+                <span class="sponsored-badge">Sponsored listing</span>
+              )}
+              <h3>
+                <a href={profilePath(agent)}>{agent.name}</a>
+              </h3>
+              <div class="brokerage">{agent.brokerage}</div>
+              <p>{agent.short}</p>
+              <a
+                class="btn"
+                href={profilePath(agent)}
+                aria-label={`View ${agent.name} profile`}
+              >
+                View profile
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <span class="eyebrow">Before you buy</span>
+        <h2>
+          What to check in <em>{place.name}.</em>
+        </h2>
+        <ul class="check-list">
+          <li>
+            Confirm school zoning for the exact address with the school
+            district.
+          </li>
+          <li>
+            Ask for the home’s total tax rate, including any MUD or PID levies.
+          </li>
+          <li>
+            Read the deed restrictions and HOA rules before you make an offer.
+          </li>
+          <li>Ask each realtor what they’ve sold recently in {place.name}.</li>
+        </ul>
+        <p>
+          Start with the{' '}
+          <ExternalLink href={place.official}>
+            {place.officialLabel.toLowerCase()}
+          </ExternalLink>{' '}
+          for community details.
+        </p>
+      </div>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <span class="eyebrow">Keep exploring</span>
+        <h2>
+          Other Cypress <em>neighborhoods.</em>
+        </h2>
+        <div class="more-links">
+          {others.map((other) => (
+            <a href={neighborhoodPath(other)}>{other.name}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>

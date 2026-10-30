@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "bridgeland",
+    "name": "Bridgeland",
+    "eyebrow": "Master-planned community",
+    "summary": "The developer describes an 11,500-acre community with lakes, trails, and connected villages.",
+    "official": "https://www.bridgeland.com/community/",
+    "officialLabel": "Official community guide"
+  },
+  {
+    "slug": "towne-lake",
+    "name": "Towne Lake",
+    "eyebrow": "Lake-centered living",
+    "summary": "The community’s official site describes a 300-acre recreational lake and connected trails and waterways.",
+    "official": "https://townelaketexas.com/lake",
+    "officialLabel": "Official lake guide"
+  },
+  {
+    "slug": "fairfield",
+    "name": "Fairfield",
+    "eyebrow": "Community associations",
+    "summary": "The Fairfield website links residents to the Village, Central, Place, Village South, Lakes, and Trails association portals.",
+    "official": "https://www.fairfieldvillage.org/",
+    "officialLabel": "Official association portals"
+  },
+  {
+    "slug": "coles-crossing",
+    "name": "Coles Crossing",
+    "eyebrow": "Established in 1998",
+    "summary": "The community association describes a master-planned neighborhood off Highway 290 and Barker Cypress, with wooded recreational areas.",
+    "official": "https://www.colescrossingcommunity.com/home/",
+    "officialLabel": "Official community website"
+  },
+  {
+    "slug": "cypress-creek-lakes",
+    "name": "Cypress Creek Lakes",
+    "eyebrow": "Local association information",
+    "summary": "The property owners association provides community news, pool information, and contacts for its different phases.",
+    "official": "https://cypresscreeklakeshoa.com/",
+    "officialLabel": "Official association website"
+  }
+]

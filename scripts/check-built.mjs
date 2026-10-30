@@ -12,6 +12,12 @@ import {
   canonical,
   profilePath,
   isTeam,
+  orderProfiles,
+  NEIGHBORHOODS,
+  SPONSORED_SLUG,
+  neighborhoodPath,
+  servesNeighborhood,
+  SITE_UPDATED,
 } from '../src/lib/contracts.ts';
 const root = path.resolve('dist');
 assert(
@@ -29,6 +35,7 @@ let references = 0;
 const failures = [];
 const titles = new Set();
 const descriptions = new Set();
+const pages = new Map();
 for (const route of routes) {
   const file = path.join(root, route === '/' ? 'index.html' : route.slice(1));
   assert(
@@ -42,6 +49,7 @@ for (const route of routes) {
   );
   const markup = fs.readFileSync(file, 'utf8');
   const $ = load(markup);
+  pages.set(route, $);
   assert.equal($('h1').length, 1);
   assert.equal($('main').length, 1);
   assert.equal($('html').attr('lang'), 'en');
@@ -97,11 +105,19 @@ for (const agent of agents.filter((a) => !a.draft)) {
     assert($('.highlights').text().includes(item));
   if (agent.highlights?.reviews)
     assert($('.highlights').text().includes(agent.highlights.reviews));
-  const schema = JSON.parse($('script[type="application/ld+json"]').text());
+  const graph = JSON.parse($('script[type="application/ld+json"]').text())[
+    '@graph'
+  ];
+  const schema = graph.find((node) => node['@type'] === 'ProfilePage');
   assert.equal(schema.mainEntity.name, agent.name);
   assert.equal(
     schema.mainEntity['@type'],
-    isTeam(agent) ? 'Organization' : 'Person',
+    isTeam(agent) ? 'RealEstateAgent' : 'Person',
+  );
+  const crumbs = graph.find((node) => node['@type'] === 'BreadcrumbList');
+  assert.equal(
+    crumbs.itemListElement.at(-1).item,
+    canonical(profilePath(agent)),
   );
   if (agent.tel)
     assert.equal($('a[href^="tel:"]').attr('href'), 'tel:' + agent.tel);
@@ -127,6 +143,67 @@ assert.equal(
   'lippincott-team',
 );
 assert.equal(home('.feature-card .identity h3').text(), 'The Lippincott Team');
+const featured = agents.find((a) => a.slug === 'lippincott-team');
+assert.equal(
+  home('.feature-card a[href^="tel:"]').attr('href'),
+  'tel:' + featured.tel,
+);
+const homeGraph = JSON.parse(home('script[type="application/ld+json"]').text())[
+  '@graph'
+];
+const faq = homeGraph.find((node) => node['@type'] === 'FAQPage');
+const visibleText = (el) => home(el).text().replaceAll(/\s+/g, ' ').trim();
+assert.deepEqual(
+  faq.mainEntity.map((q) => q.name),
+  home('.faq-list summary')
+    .map((_, el) => visibleText(el))
+    .get(),
+);
+assert.deepEqual(
+  faq.mainEntity.map((q) => q.acceptedAnswer.text),
+  home('.faq-list details > p')
+    .map((_, el) => visibleText(el))
+    .get(),
+);
+assert.deepEqual(
+  home('.compare-table tbody tr')
+    .map((_, el) => home(el).attr('data-profile'))
+    .get(),
+  orderProfiles(agents).map((a) => a.slug),
+);
+const caption = home('.compare-table caption').text().trim();
+assert(
+  caption.startsWith(
+    orderProfiles(agents).length + ' Cypress, TX realtors compared. ',
+  ),
+  'Comparison caption: ' + caption,
+);
+for (const place of NEIGHBORHOODS) {
+  const page = pages.get(neighborhoodPath(place));
+  assert(page, 'Missing neighborhood page: ' + place.slug);
+  const expected = orderProfiles(agents)
+    .filter((a) => servesNeighborhood(a, place))
+    .map((a) => a.slug);
+  assert(expected.length > 0, 'Neighborhood without realtors: ' + place.slug);
+  assert.deepEqual(
+    page('.place-agents li')
+      .map((_, el) => page(el).attr('data-profile'))
+      .get(),
+    expected,
+  );
+  assert.equal(home(`.hood-card[data-place="${place.slug}"]`).length, 1);
+  // The paid placement keeps its directory-row disclosure here too.
+  assert.deepEqual(
+    page('.sponsored-badge')
+      .map((_, el) => [
+        [page(el).closest('li').attr('data-profile'), page(el).text().trim()],
+      ])
+      .get(),
+    expected.includes(SPONSORED_SLUG)
+      ? [[SPONSORED_SLUG, 'Sponsored listing']]
+      : [],
+  );
+}
 assert.equal(home('.feature-card .identity .btn').length, 0);
 assert.equal(home('.feature-card .sponsored-badge').length, 0);
 assert.equal(home('.hero .feature-card').length, 1);
@@ -156,6 +233,12 @@ assert.deepEqual(
     .map((el) => sitemap(el).text())
     .sort(),
   publicPaths(agents).map(canonical).sort(),
+);
+assert(
+  sitemap('url')
+    .toArray()
+    .every((el) => sitemap(el).find('lastmod').text() === SITE_UPDATED),
+  'Every sitemap entry carries lastmod',
 );
 assert(
   fs

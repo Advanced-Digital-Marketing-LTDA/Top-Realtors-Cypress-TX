@@ -1,7 +1,11 @@
 import { z } from 'zod';
+import rawNeighborhoods from '../content/neighborhoods.json' with { type: 'json' };
 export const ORIGIN = 'https://realtorscypresstx.com';
 export const SPONSORED_SLUG = 'lippincott-team';
 export const FACTS_CHECKED = 'October 14, 2026';
+// Last content change across public pages; feeds sitemap lastmod and dateModified.
+export const SITE_UPDATED = '2026-10-30';
+export const SITE_UPDATED_LABEL = 'October 30, 2026';
 // HAR feedback on an organization belongs to its named individual.
 const teamRatingSubjects: Readonly<Record<string, string>> = {
   [SPONSORED_SLUG]: 'Amy Lippincott',
@@ -22,6 +26,23 @@ const webUrl = text.refine((value) => {
   }
 }, 'Expected a public HTTP(S) URL');
 const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+const neighborhoodSchema = z.object({
+  slug,
+  name: text,
+  eyebrow: text,
+  summary: text,
+  official: webUrl,
+  officialLabel: text,
+});
+export type Neighborhood = z.infer<typeof neighborhoodSchema>;
+export const NEIGHBORHOODS: readonly Neighborhood[] = z
+  .array(neighborhoodSchema)
+  .min(1)
+  .refine(
+    (list) => new Set(list.map((n) => n.slug)).size === list.length,
+    'Duplicate neighborhood slug',
+  )
+  .parse(rawNeighborhoods);
 export const siteSchema = z.object({
   name: text,
   origin: z.literal(ORIGIN),
@@ -45,6 +66,7 @@ export const agentSchema = z
       .optional(),
     license: text.optional(),
     checked: text.optional(),
+    meta: text.max(160).optional(),
     intro: text,
     short: text,
     draft: z.boolean().default(false),
@@ -158,7 +180,7 @@ export function parseRatingSnapshot(
 }
 export function canonical(path: string) {
   if (
-    !/^\/(?:|terms\.html|privacy\.html|404\.html|realtors\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)$/.test(
+    !/^\/(?:(?:about|terms|privacy|404)\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)?$/.test(
       path,
     )
   )
@@ -167,6 +189,18 @@ export function canonical(path: string) {
 }
 export function profilePath(agent: Pick<Agent, 'slug'>) {
   return '/realtors/' + slug.parse(agent.slug) + '.html';
+}
+export function neighborhoodPath(place: Pick<Neighborhood, 'slug'>) {
+  return '/neighborhoods/' + slug.parse(place.slug) + '.html';
+}
+// A realtor serves a neighborhood when a sourced service area names it.
+export function servesNeighborhood(
+  agent: Pick<Agent, 'highlights'>,
+  place: Pick<Neighborhood, 'name'>,
+) {
+  return (agent.highlights?.areas ?? []).some(
+    (area) => area === place.name || area.startsWith(place.name + ' '),
+  );
 }
 export function orderProfiles(agents: Agent[]) {
   return agents
@@ -182,8 +216,10 @@ export function orderProfiles(agents: Agent[]) {
 export function publicPaths(agents: Agent[]) {
   return [
     '/',
+    '/about.html',
     '/terms.html',
     '/privacy.html',
+    ...NEIGHBORHOODS.map(neighborhoodPath),
     ...orderProfiles(agents).map(profilePath),
   ];
 }

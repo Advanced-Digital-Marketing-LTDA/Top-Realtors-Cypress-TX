@@ -12,13 +12,18 @@ import {
   profilePath,
   publicPaths,
   isTeam,
+  NEIGHBORHOODS,
+  neighborhoodPath,
+  servesNeighborhood,
 } from '../src/lib/contracts';
 test.each([
   '/',
   '/terms.html',
   '/privacy.html',
   '/404.html',
+  '/about.html',
   '/realtors/lippincott-team.html',
+  '/neighborhoods/towne-lake.html',
 ])('canonical preserves approved %s', (path) =>
   expect(canonical(path)).toBe('https://realtorscypresstx.com' + path),
 );
@@ -32,6 +37,9 @@ test.each([
   '/?token=secret',
   '/#main',
   '/admin',
+  '/neighborhoods/Bridgeland.html',
+  '/neighborhoods/',
+  '/about',
 ])('rejects %s', (path) => expect(() => canonical(path)).toThrow());
 test('rejects lookalike origin and nonboolean flag', () => {
   expect(() =>
@@ -113,12 +121,14 @@ test('drafts leave both directory and public route inventory', () => {
   data[2].draft = true;
   expect(orderProfiles(data)).toHaveLength(7);
   expect(publicPaths(data)).not.toContain(profilePath(data[2]));
-  expect(publicPaths(parseDirectory(agents))).toHaveLength(11);
+  expect(publicPaths(parseDirectory(agents))).toHaveLength(17);
   expect(new Set(publicPaths(parseDirectory(agents)))).toEqual(
     new Set([
       '/',
+      '/about.html',
       '/privacy.html',
       '/terms.html',
+      ...NEIGHBORHOODS.map((n) => `/neighborhoods/${n.slug}.html`),
       ...agents.map((a) => `/realtors/${a.slug}.html`),
     ]),
   );
@@ -285,4 +295,40 @@ test('an individual with a constructor slug retains its own rated subject', () =
     parseRatingSnapshot({ ...snapshots, constructor: rating }, changed)
       .constructor,
   ).toEqual(rating);
+});
+test('neighborhood matching uses whole sourced area names', () => {
+  const place = { name: 'Fairfield' };
+  const areas = (list: string[]) => ({
+    highlights: {
+      areas: list,
+      specialties: [],
+      languages: [],
+      designations: [],
+    },
+  });
+  expect(servesNeighborhood(areas(['Fairfield']), place)).toBe(true);
+  expect(servesNeighborhood(areas(['Fairfield Village']), place)).toBe(true);
+  expect(servesNeighborhood(areas(['Fairfields']), place)).toBe(false);
+  expect(servesNeighborhood(areas(['North Fairfield']), place)).toBe(false);
+  expect(servesNeighborhood({}, place)).toBe(false);
+});
+test('every neighborhood has a valid path and at least one realtor', () => {
+  const data = orderProfiles(parseDirectory(agents));
+  expect(new Set(NEIGHBORHOODS.map((n) => n.slug)).size).toBe(
+    NEIGHBORHOODS.length,
+  );
+  for (const place of NEIGHBORHOODS) {
+    expect(canonical(neighborhoodPath(place))).toBe(
+      'https://realtorscypresstx.com/neighborhoods/' + place.slug + '.html',
+    );
+    expect(data.some((a) => servesNeighborhood(a, place))).toBe(true);
+  }
+  expect(() => neighborhoodPath({ slug: '../x' })).toThrow();
+});
+test('meta descriptions stay within 160 characters', () => {
+  const data = structuredClone(agents);
+  (data[0] as { meta?: string }).meta = 'x'.repeat(161);
+  expect(() => parseDirectory(data)).toThrow();
+  for (const agent of parseDirectory(agents))
+    expect(agent.meta?.length ?? 0).toBeLessThanOrEqual(160);
 });

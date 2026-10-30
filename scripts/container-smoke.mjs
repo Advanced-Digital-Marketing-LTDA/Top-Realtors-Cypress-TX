@@ -25,8 +25,10 @@ const agents = JSON.parse(fs.readFileSync('src/content/realtors.json', 'utf8'));
 const site = JSON.parse(fs.readFileSync('src/content/site.json', 'utf8'));
 const routes = [
   '/',
+  '/about.html',
   '/terms.html',
   '/privacy.html',
+  '/neighborhoods/bridgeland.html',
   ...agents.filter((a) => !a.draft).map((a) => '/realtors/' + a.slug + '.html'),
 ];
 for (let attempt = 0; attempt < 50; attempt++) {
@@ -101,6 +103,8 @@ for (const route of [
   '/sitemap.xml',
   '/favicon.svg',
   '/assets/coles-crossing-morning-1320.jpg',
+  '/assets/coles-crossing-morning-1320.avif',
+  '/fonts/dm-sans-latin-wght-normal.woff2',
 ]) {
   const response = await request(route);
   assert.equal(response.status, 200, route);

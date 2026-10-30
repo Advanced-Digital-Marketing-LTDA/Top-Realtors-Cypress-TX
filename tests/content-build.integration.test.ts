@@ -14,6 +14,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { load } from 'cheerio';
+import { NEIGHBORHOODS } from '../src/lib/contracts';
 let root: string;
 beforeAll(() => {
   root = mkdtempSync(join(tmpdir(), 'cypress-astro-content-'));
@@ -193,12 +194,17 @@ test('browser test inventory omits a draft profile and retains published routes'
     expect(
       titles.filter((title) => title.includes('/realtors/michele-harmon.html')),
     ).toEqual([]);
-    expect(titles).toHaveLength(39);
+    expect(titles).toHaveLength(57);
     for (const width of [1440, 375, 320]) {
       expect(titles).toContain(`${width}px no-JS /`);
       expect(titles).toContain(
         `${width}px no-JS /realtors/lippincott-team.html`,
       );
+      for (const path of [
+        '/about.html',
+        ...NEIGHBORHOODS.map((n) => '/neighborhoods/' + n.slug + '.html'),
+      ])
+        expect(titles).toContain(`${width}px no-JS ${path}`);
     }
   } finally {
     writeFileSync(file, original);

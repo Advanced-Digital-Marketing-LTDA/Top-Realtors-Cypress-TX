@@ -1,7 +1,12 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import type { Agent, Rating } from '../../lib/contracts';
-import { FACTS_CHECKED, profilePath } from '../../lib/contracts';
+import {
+  FACTS_CHECKED,
+  SITE_UPDATED,
+  SITE_UPDATED_LABEL,
+  profilePath,
+} from '../../lib/contracts';
 import { getDirectory, profileSchema } from '../../lib/content';
 import Base from '../../layouts/Base.astro';
 import ExternalLink from '../../components/ExternalLink.astro';
@@ -31,8 +36,8 @@ const licenseNote = agent.license
 ---
 
 <Base
-  title={`${agent.name} | Top Realtors Cypress TX`}
-  description={agent.intro}
+  title={`${agent.name} Reviews & Sales | Cypress TX Realtor`}
+  description={agent.meta ?? agent.intro}
   path={profilePath(agent)}
   schema={profileSchema(agent)}
 >
@@ -51,7 +56,7 @@ const licenseNote = agent.license
             <p class="lede">{agent.intro}</p>
             <div class="hero-actions">
               <ExternalLink href={agent.official} class="btn btn-gold">
-                {agent.official_label ?? 'Visit official website'}
+                {agent.official_label ?? `Visit ${agent.name}’s website`}
               </ExternalLink>
               <ExternalLink href={agent.har} class="text-link">
                 View HAR profile
@@ -109,7 +114,8 @@ const licenseNote = agent.license
               See current HAR listings
             </ExternalLink>
             <p class="note">
-              {licenseNote}We checked these sources {checked}.
+              {licenseNote}We checked these sources {checked}. Page updated{' '}
+              <time datetime={SITE_UPDATED}>{SITE_UPDATED_LABEL}</time>.
             </p>
           </aside>
         </div>

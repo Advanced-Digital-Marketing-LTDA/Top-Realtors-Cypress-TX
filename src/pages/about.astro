@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import { aboutSchema, getDirectory } from '../lib/content';
+const { agents } = await getDirectory();
+---
+
+<Base
+  title="About Top Realtors Cypress TX | How the Guide Works"
+  description="How Top Realtors Cypress TX builds its realtor profiles: public HAR records and realtor websites, linked sources, labeled self-reported claims and dated checks."
+  path="/about.html"
+  schema={aboutSchema()}
+>
+  <main id="main" class="wrap legal">
+    <span class="eyebrow">About this guide</span>
+    <h1>About Top Realtors Cypress TX</h1>
+    <p>
+      Top Realtors Cypress TX helps people buying, selling or renting in
+      Cypress, Texas compare local realtors before the first call. It covers{' '}
+      {agents.length} agents, teams and brokerages.
+    </p>
+    <h2>How we build each profile</h2>
+    <p>
+      We read each realtor’s HAR profile, sales and lease history, public client
+      comments and website. Every fact links to the page we read it on. Awards
+      and totals a realtor publishes about themselves are marked as
+      self-reported, and anything we can’t verify stays off the page.
+    </p>
+    <h2>How the list is ordered</h2>
+    <p>
+      The Lippincott Team is our #1 choice, an editorial recommendation rather
+      than a calculated ranking. Everyone else is listed A to Z. HAR ratings
+      belong to the named individual and don’t decide the order.
+    </p>
+    <h2>What we don’t do</h2>
+    <p>
+      We don’t collect contact details, forward inquiries, set fees, or audit
+      sales and reviews. Confirm licensing, brokerage, services and fees with
+      each realtor, and check licenses with{' '}
+      <ExternalLink href="https://www.trec.texas.gov/license-search/">
+        TREC’s License Holder Search
+      </ExternalLink>
+      .
+    </p>
+    <h2>How current it is</h2>
+    <p>
+      We checked our sources on October 14 and 15, 2026. Each rating shows its
+      own check date. Our <a href="/terms.html">Terms</a> page explains who runs
+      this site.
+    </p>
+    <p>
+      <a href="/#directory">Compare the realtors</a>
+    </p>
+  </main>
+</Base>
