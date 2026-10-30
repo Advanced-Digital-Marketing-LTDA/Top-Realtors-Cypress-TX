@@ -34,6 +34,7 @@ let references = 0;
 const failures = [];
 const titles = new Set();
 const descriptions = new Set();
+const pages = new Map();
 for (const route of routes) {
   const file = path.join(root, route === '/' ? 'index.html' : route.slice(1));
   assert(
@@ -47,6 +48,7 @@ for (const route of routes) {
   );
   const markup = fs.readFileSync(file, 'utf8');
   const $ = load(markup);
+  pages.set(route, $);
   assert.equal($('h1').length, 1);
   assert.equal($('main').length, 1);
   assert.equal($('html').attr('lang'), 'en');
@@ -168,9 +170,8 @@ assert.match(
   ),
 );
 for (const place of NEIGHBORHOODS) {
-  const page = load(
-    fs.readFileSync(path.join(root, neighborhoodPath(place).slice(1)), 'utf8'),
-  );
+  const page = pages.get(neighborhoodPath(place));
+  assert(page, 'Missing neighborhood page: ' + place.slug);
   const expected = orderProfiles(agents)
     .filter((a) => servesNeighborhood(a, place))
     .map((a) => a.slug);
