@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Featured from '../components/Featured.astro';
 import AgentRow from '../components/AgentRow.astro';
-import { getDirectory, directorySchema } from '../lib/content';
+import { getDirectory, directorySchema, type FaqItem } from '../lib/content';
 import {
   SPONSORED_SLUG,
   NEIGHBORHOODS,
@@ -13,7 +13,7 @@ import {
 import ExternalLink from '../components/ExternalLink.astro';
 const { agents, ratings } = await getDirectory();
 const team = agents.find((agent) => agent.slug === SPONSORED_SLUG)!;
-const faq = [
+const faq: FaqItem[] = [
   {
     question: 'Is this a ranking of the best realtors?',
     answer:
@@ -39,6 +39,7 @@ const faq = [
     answer:
       'No. There are no forms, sign-ups or lead capture here, and we load no analytics or third-party fonts. Links to other sites follow their own privacy practices.',
     id: 'privacy',
+    more: { label: 'privacy page', href: '/privacy.html' },
   },
 ];
 const places = NEIGHBORHOODS.map((place) => ({
@@ -392,10 +393,10 @@ const places = NEIGHBORHOODS.map((place) => ({
               <summary>{item.question}</summary>
               <p>
                 {item.answer}
-                {item.id === 'privacy' && (
+                {item.more && (
                   <>
                     {' '}
-                    See our <a href="/privacy.html">privacy page</a> for
+                    See our <a href={item.more.href}>{item.more.label}</a> for
                     details.
                   </>
                 )}

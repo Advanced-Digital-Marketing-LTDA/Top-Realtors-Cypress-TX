@@ -151,10 +151,17 @@ const homeGraph = JSON.parse(home('script[type="application/ld+json"]').text())[
   '@graph'
 ];
 const faq = homeGraph.find((node) => node['@type'] === 'FAQPage');
+const visibleText = (el) => home(el).text().replaceAll(/\s+/g, ' ').trim();
 assert.deepEqual(
   faq.mainEntity.map((q) => q.name),
   home('.faq-list summary')
-    .map((_, el) => home(el).text().trim())
+    .map((_, el) => visibleText(el))
+    .get(),
+);
+assert.deepEqual(
+  faq.mainEntity.map((q) => q.acceptedAnswer.text),
+  home('.faq-list details > p')
+    .map((_, el) => visibleText(el))
     .get(),
 );
 assert.deepEqual(
@@ -163,11 +170,12 @@ assert.deepEqual(
     .get(),
   orderProfiles(agents).map((a) => a.slug),
 );
-assert.match(
-  home('.compare-table caption').text().trim(),
-  new RegExp(
-    `^${orderProfiles(agents).length} Cypress, TX realtors compared\\. `,
+const caption = home('.compare-table caption').text().trim();
+assert(
+  caption.startsWith(
+    orderProfiles(agents).length + ' Cypress, TX realtors compared. ',
   ),
+  'Comparison caption: ' + caption,
 );
 for (const place of NEIGHBORHOODS) {
   const page = pages.get(neighborhoodPath(place));

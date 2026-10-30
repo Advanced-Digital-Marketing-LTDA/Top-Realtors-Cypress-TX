@@ -79,10 +79,19 @@ function agentEntity(agent: Agent) {
     ...languages,
   };
 }
-export function directorySchema(
-  agents: Agent[],
-  faq: { question: string; answer: string }[],
-) {
+export interface FaqItem {
+  question: string;
+  answer: string;
+  id?: string;
+  // Rendered after the answer as "See our <a>label</a> for details."
+  more?: { label: string; href: string };
+}
+// Plain-text answer exactly as the page shows it, for FAQPage JSON-LD.
+export const faqAnswerText = (item: FaqItem) =>
+  item.more
+    ? `${item.answer} See our ${item.more.label} for details.`
+    : item.answer;
+export function directorySchema(agents: Agent[], faq: FaqItem[]) {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -99,7 +108,7 @@ export function directorySchema(
         mainEntity: faq.map((item) => ({
           '@type': 'Question',
           name: item.question,
-          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+          acceptedAnswer: { '@type': 'Answer', text: faqAnswerText(item) },
         })),
       },
     ],
