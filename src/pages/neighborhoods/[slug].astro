@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import type { Neighborhood } from '../../lib/contracts';
 import {
   NEIGHBORHOODS,
+  SPONSORED_SLUG,
   neighborhoodPath,
   profilePath,
   servesNeighborhood,
@@ -58,12 +59,17 @@ const others = NEIGHBORHOODS.filter((other) => other.slug !== place.slug);
         </h2>
         <p>
           Each of these realtors names {place.name} among the areas they serve,
-          based on the sources on their profile. Our featured pick comes first,
-          then everyone else from A to Z.
+          based on the sources on their profile.{' '}
+          {serving[0]?.slug === SPONSORED_SLUG
+            ? 'Our featured pick comes first, then everyone else from A to Z.'
+            : 'They are listed from A to Z.'}
         </p>
         <ul class="place-agents">
           {serving.map((agent) => (
             <li data-profile={agent.slug}>
+              {agent.slug === SPONSORED_SLUG && (
+                <span class="sponsored-badge">Sponsored listing</span>
+              )}
               <h3>
                 <a href={profilePath(agent)}>{agent.name}</a>
               </h3>

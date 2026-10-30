@@ -14,6 +14,7 @@ import {
   isTeam,
   orderProfiles,
   NEIGHBORHOODS,
+  SPONSORED_SLUG,
   neighborhoodPath,
   servesNeighborhood,
   SITE_UPDATED,
@@ -191,6 +192,17 @@ for (const place of NEIGHBORHOODS) {
     expected,
   );
   assert.equal(home(`.hood-card[data-place="${place.slug}"]`).length, 1);
+  // The paid placement keeps its directory-row disclosure here too.
+  assert.deepEqual(
+    page('.sponsored-badge')
+      .map((_, el) => [
+        [page(el).closest('li').attr('data-profile'), page(el).text().trim()],
+      ])
+      .get(),
+    expected.includes(SPONSORED_SLUG)
+      ? [[SPONSORED_SLUG, 'Sponsored listing']]
+      : [],
+  );
 }
 assert.equal(home('.feature-card .identity .btn').length, 0);
 assert.equal(home('.feature-card .sponsored-badge').length, 0);
