@@ -161,6 +161,12 @@ assert.deepEqual(
     .get(),
   orderProfiles(agents).map((a) => a.slug),
 );
+assert.match(
+  home('.compare-table caption').text().trim(),
+  new RegExp(
+    `^${orderProfiles(agents).length} Cypress, TX realtors compared\\. `,
+  ),
+);
 for (const place of NEIGHBORHOODS) {
   const page = load(
     fs.readFileSync(path.join(root, neighborhoodPath(place).slice(1)), 'utf8'),
