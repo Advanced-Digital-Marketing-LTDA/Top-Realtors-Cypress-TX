@@ -223,9 +223,25 @@ const places = NEIGHBORHOODS.map((place) => ({
                         .join(', ') || 'See profile'}
                     </td>
                     <td>
-                      {rating
-                        ? `${rating.value} / 5 (${rating.subject}, ${rating.count} surveys)`
-                        : 'No HAR rating in this snapshot'}
+                      {rating ? (
+                        <>
+                          {rating.value} / 5 ({rating.subject}, {rating.count}{' '}
+                          {rating.count_type})
+                          <br />
+                          <span class="note">
+                            <ExternalLink href={rating.source}>
+                              {rating.platform}
+                            </ExternalLink>{' '}
+                            · Checked{' '}
+                            <time datetime={rating.checked}>
+                              {rating.checked}
+                            </time>
+                            . {rating.scope}.
+                          </span>
+                        </>
+                      ) : (
+                        'No HAR rating in this snapshot'
+                      )}
                     </td>
                   </tr>
                 );
