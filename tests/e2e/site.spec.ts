@@ -2,13 +2,15 @@ import { expect, test, type Page, type Locator } from '@playwright/test';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import agentData from '../../src/content/realtors.json' with { type: 'json' };
 import ratings from '../../src/content/ratings.json' with { type: 'json' };
-import { parseDirectory } from '../../src/lib/contracts';
+import { NEIGHBORHOODS, parseDirectory } from '../../src/lib/contracts';
 const agents = parseDirectory(agentData).filter((agent) => !agent.draft);
 const paths = [
   '/',
   '/terms.html',
   '/privacy.html',
   '/404.html',
+  '/about.html',
+  ...NEIGHBORHOODS.map((n) => '/neighborhoods/' + n.slug + '.html'),
   ...agents.map((a) => '/realtors/' + a.slug + '.html'),
 ];
 async function checkRating(
@@ -129,7 +131,11 @@ for (const width of [1440, 375, 320])
           };
         });
         expect(hero.decoded).toBe(true);
-        expect(hero.src).toContain(width === 1440 ? '1320.jpg' : '660.jpg');
+        expect(hero.src).toMatch(
+          width === 1440
+            ? /1320\.(?:avif|webp|jpg)$/
+            : /660\.(?:avif|webp|jpg)$/,
+        );
         await page.keyboard.press('Tab');
         await expect(page.locator('.skip')).toBeFocused();
         await page.keyboard.press('Enter');

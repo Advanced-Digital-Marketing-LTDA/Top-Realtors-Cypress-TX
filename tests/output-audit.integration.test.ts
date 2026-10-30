@@ -52,7 +52,12 @@ afterAll(() => {
 
 test('homepage JSON-LD declares the Schema.org unordered ItemList value', () => {
   const $ = load(readFileSync(join(root, 'dist/index.html'), 'utf8'));
-  const schema = JSON.parse($('script[type="application/ld+json"]').text());
+  const graph = JSON.parse($('script[type="application/ld+json"]').text())[
+    '@graph'
+  ];
+  const schema = graph.find(
+    (node: { '@type': string }) => node['@type'] === 'ItemList',
+  );
   expect(schema.itemListOrder).toBe('https://schema.org/ItemListUnordered');
 });
 
@@ -80,6 +85,9 @@ function withoutLocalReferences(run: () => void) {
   const files = [
     ...readdirSync(dist).filter((name) => name.endsWith('.html')),
     ...readdirSync(join(dist, 'realtors')).map((name) => 'realtors/' + name),
+    ...readdirSync(join(dist, 'neighborhoods')).map(
+      (name) => 'neighborhoods/' + name,
+    ),
   ];
   const originals = files.map((name) => ({
     file: join(dist, name),

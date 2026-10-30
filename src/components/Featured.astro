@@ -22,6 +22,11 @@ const { agent } = Astro.props;
   <a class="btn btn-gold" href={profilePath(agent)}>
     See why we chose them
   </a>
+  {agent.tel && (
+    <a class="btn btn-light" href={`tel:${agent.tel}`}>
+      Call {agent.phone}
+    </a>
+  )}
   <p class="note">
     <ExternalLink href={agent.har}>View the HAR profile</ExternalLink>
   </p>

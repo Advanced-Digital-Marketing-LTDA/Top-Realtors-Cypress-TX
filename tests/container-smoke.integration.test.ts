@@ -28,8 +28,10 @@ async function smoke(
   );
   const routes = new Set([
     '/',
+    '/about.html',
     '/terms.html',
     '/privacy.html',
+    '/neighborhoods/bridgeland.html',
     ...agents.map((agent) => '/realtors/' + agent.slug + '.html'),
   ]);
   const assets = new Set([
@@ -37,6 +39,8 @@ async function smoke(
     '/sitemap.xml',
     '/favicon.svg',
     '/assets/coles-crossing-morning-1320.jpg',
+    '/assets/coles-crossing-morning-1320.avif',
+    '/fonts/dm-sans-latin-wght-normal.woff2',
   ]);
   let redirectedRequests = 0;
   const server = createServer((request, response) => {

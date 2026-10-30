@@ -2,6 +2,64 @@ import { z } from 'zod';
 export const ORIGIN = 'https://realtorscypresstx.com';
 export const SPONSORED_SLUG = 'lippincott-team';
 export const FACTS_CHECKED = 'October 14, 2026';
+// Last content change across public pages; feeds sitemap lastmod and dateModified.
+export const SITE_UPDATED = '2026-10-30';
+export const SITE_UPDATED_LABEL = 'October 30, 2026';
+export interface Neighborhood {
+  slug: string;
+  name: string;
+  eyebrow: string;
+  summary: string;
+  official: string;
+  officialLabel: string;
+}
+export const NEIGHBORHOODS: readonly Neighborhood[] = [
+  {
+    slug: 'bridgeland',
+    name: 'Bridgeland',
+    eyebrow: 'Master-planned community',
+    summary:
+      'The developer describes an 11,500-acre community with lakes, trails, and connected villages.',
+    official: 'https://www.bridgeland.com/community/',
+    officialLabel: 'Official community guide',
+  },
+  {
+    slug: 'towne-lake',
+    name: 'Towne Lake',
+    eyebrow: 'Lake-centered living',
+    summary:
+      'The community’s official site describes a 300-acre recreational lake and connected trails and waterways.',
+    official: 'https://townelaketexas.com/lake',
+    officialLabel: 'Official lake guide',
+  },
+  {
+    slug: 'fairfield',
+    name: 'Fairfield',
+    eyebrow: 'Community associations',
+    summary:
+      'The Fairfield website links residents to the Village, Central, Place, Village South, Lakes, and Trails association portals.',
+    official: 'https://www.fairfieldvillage.org/',
+    officialLabel: 'Official association portals',
+  },
+  {
+    slug: 'coles-crossing',
+    name: 'Coles Crossing',
+    eyebrow: 'Established in 1998',
+    summary:
+      'The community association describes a master-planned neighborhood off Highway 290 and Barker Cypress, with wooded recreational areas.',
+    official: 'https://www.colescrossingcommunity.com/home/',
+    officialLabel: 'Official community website',
+  },
+  {
+    slug: 'cypress-creek-lakes',
+    name: 'Cypress Creek Lakes',
+    eyebrow: 'Local association information',
+    summary:
+      'The property owners association provides community news, pool information, and contacts for its different phases.',
+    official: 'https://cypresscreeklakeshoa.com/',
+    officialLabel: 'Official association website',
+  },
+];
 // HAR feedback on an organization belongs to its named individual.
 const teamRatingSubjects: Readonly<Record<string, string>> = {
   [SPONSORED_SLUG]: 'Amy Lippincott',
@@ -45,6 +103,7 @@ export const agentSchema = z
       .optional(),
     license: text.optional(),
     checked: text.optional(),
+    meta: text.max(160).optional(),
     intro: text,
     short: text,
     draft: z.boolean().default(false),
@@ -158,7 +217,7 @@ export function parseRatingSnapshot(
 }
 export function canonical(path: string) {
   if (
-    !/^\/(?:|terms\.html|privacy\.html|404\.html|realtors\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)$/.test(
+    !/^\/(?:|about\.html|terms\.html|privacy\.html|404\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)$/.test(
       path,
     )
   )
@@ -167,6 +226,18 @@ export function canonical(path: string) {
 }
 export function profilePath(agent: Pick<Agent, 'slug'>) {
   return '/realtors/' + slug.parse(agent.slug) + '.html';
+}
+export function neighborhoodPath(place: Pick<Neighborhood, 'slug'>) {
+  return '/neighborhoods/' + slug.parse(place.slug) + '.html';
+}
+// A realtor serves a neighborhood when a sourced service area names it.
+export function servesNeighborhood(
+  agent: Pick<Agent, 'highlights'>,
+  place: Pick<Neighborhood, 'name'>,
+) {
+  return (agent.highlights?.areas ?? []).some(
+    (area) => area === place.name || area.startsWith(place.name + ' '),
+  );
 }
 export function orderProfiles(agents: Agent[]) {
   return agents
@@ -182,8 +253,10 @@ export function orderProfiles(agents: Agent[]) {
 export function publicPaths(agents: Agent[]) {
   return [
     '/',
+    '/about.html',
     '/terms.html',
     '/privacy.html',
+    ...NEIGHBORHOODS.map(neighborhoodPath),
     ...orderProfiles(agents).map(profilePath),
   ];
 }

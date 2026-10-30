@@ -193,7 +193,7 @@ test('browser test inventory omits a draft profile and retains published routes'
     expect(
       titles.filter((title) => title.includes('/realtors/michele-harmon.html')),
     ).toEqual([]);
-    expect(titles).toHaveLength(39);
+    expect(titles).toHaveLength(57);
     for (const width of [1440, 375, 320]) {
       expect(titles).toContain(`${width}px no-JS /`);
       expect(titles).toContain(
