@@ -79,7 +79,7 @@ test('PBT exact host and independently specified route grammar', () =>
   fc.assert(
     fc.property(fc.string({ maxLength: 120 }), (path) => {
       const allowed =
-        /^\/(?:|about\.html|terms\.html|privacy\.html|404\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)$/.test(
+        /^\/(?:(?:about|terms|privacy|404)\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)?$/.test(
           path,
         );
       if (allowed)

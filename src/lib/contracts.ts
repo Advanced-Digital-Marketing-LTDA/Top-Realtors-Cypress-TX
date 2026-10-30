@@ -217,7 +217,7 @@ export function parseRatingSnapshot(
 }
 export function canonical(path: string) {
   if (
-    !/^\/(?:|about\.html|terms\.html|privacy\.html|404\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)$/.test(
+    !/^\/(?:(?:about|terms|privacy|404)\.html|(?:realtors|neighborhoods)\/[a-z0-9]+(?:-[a-z0-9]+)*\.html)?$/.test(
       path,
     )
   )

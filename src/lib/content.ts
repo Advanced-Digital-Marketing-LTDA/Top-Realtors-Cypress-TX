@@ -37,6 +37,48 @@ const breadcrumbs = (items: [string, string][]) => ({
     item: canonical(path),
   })),
 });
+const agentList = (agents: Agent[]) => ({
+  '@type': 'ItemList',
+  itemListOrder: 'https://schema.org/ItemListUnordered',
+  numberOfItems: agents.length,
+  itemListElement: agents.map((a, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: a.name,
+    url: canonical(profilePath(a)),
+  })),
+});
+const listed = (key: string, values: unknown[]) =>
+  values.length ? { [key]: values } : {};
+function agentEntity(agent: Agent) {
+  const languages = listed('knowsLanguage', agent.highlights?.languages ?? []);
+  const base = {
+    name: agent.name,
+    url: agent.official,
+    sameAs: [agent.har],
+    ...(agent.tel ? { telephone: agent.tel } : {}),
+  };
+  if (isTeam(agent))
+    return {
+      '@type': 'RealEstateAgent',
+      ...base,
+      ...listed(
+        'areaServed',
+        (agent.highlights?.areas ?? []).map((name) => ({
+          '@type': 'Place',
+          name,
+        })),
+      ),
+      ...languages,
+    };
+  return {
+    '@type': 'Person',
+    ...base,
+    jobTitle: 'Real estate agent',
+    worksFor: { '@type': 'RealEstateAgent', name: agent.brokerage },
+    ...languages,
+  };
+}
 export function directorySchema(
   agents: Agent[],
   faq: { question: string; answer: string }[],
@@ -51,18 +93,7 @@ export function directorySchema(
         url: canonical('/'),
         publisher: { '@id': siteEntity['@id'] },
       },
-      {
-        '@type': 'ItemList',
-        name: 'Cypress real estate directory',
-        itemListOrder: 'https://schema.org/ItemListUnordered',
-        numberOfItems: agents.length,
-        itemListElement: agents.map((a, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: a.name,
-          url: canonical(profilePath(a)),
-        })),
-      },
+      { ...agentList(agents), name: 'Cypress real estate directory' },
       {
         '@type': 'FAQPage',
         mainEntity: faq.map((item) => ({
@@ -75,9 +106,6 @@ export function directorySchema(
   };
 }
 export function profileSchema(agent: Agent) {
-  const team = isTeam(agent);
-  const languages = agent.highlights?.languages ?? [];
-  const areas = agent.highlights?.areas ?? [];
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -86,30 +114,7 @@ export function profileSchema(agent: Agent) {
         url: canonical(profilePath(agent)),
         dateModified: SITE_UPDATED,
         isPartOf: { '@type': 'WebSite', name: site.name, url: canonical('/') },
-        mainEntity: {
-          '@type': team ? 'RealEstateAgent' : 'Person',
-          name: agent.name,
-          url: agent.official,
-          sameAs: [agent.har],
-          ...(agent.tel ? { telephone: agent.tel } : {}),
-          ...(team
-            ? {
-                ...(areas.length
-                  ? {
-                      areaServed: areas.map((name) => ({
-                        '@type': 'Place',
-                        name,
-                      })),
-                    }
-                  : {}),
-                ...(languages.length ? { knowsLanguage: languages } : {}),
-              }
-            : {
-                jobTitle: 'Real estate agent',
-                worksFor: { '@type': 'RealEstateAgent', name: agent.brokerage },
-                ...(languages.length ? { knowsLanguage: languages } : {}),
-              }),
-        },
+        mainEntity: agentEntity(agent),
       },
       breadcrumbs([
         ['Home', '/'],
@@ -129,17 +134,7 @@ export function neighborhoodSchema(place: Neighborhood, agents: Agent[]) {
         name: 'Realtors serving ' + place.name,
         dateModified: SITE_UPDATED,
         about: { '@type': 'Place', name: place.name + ', Cypress, Texas' },
-        mainEntity: {
-          '@type': 'ItemList',
-          itemListOrder: 'https://schema.org/ItemListUnordered',
-          numberOfItems: agents.length,
-          itemListElement: agents.map((a, i) => ({
-            '@type': 'ListItem',
-            position: i + 1,
-            name: a.name,
-            url: canonical(profilePath(a)),
-          })),
-        },
+        mainEntity: agentList(agents),
       },
       breadcrumbs([
         ['Home', '/'],
